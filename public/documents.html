@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Documents - CarbonReady</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f5f8f5;
+            color: #17251b;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e9e3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #163d25;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #1d7a42, #42b86c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .dashboard-link {
+            color: #31543c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #edf6ef;
+            color: #1d6b39;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* HEADER */
+
+        .page-header {
+            background: linear-gradient(135deg, #103b21, #1d6b3a);
+            color: white;
+            padding: 55px 6%;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: #a9e8ba;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            color: #d9eddd;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto 70px;
+            padding: 0 20px;
+        }
+
+        /* INFO */
+
+        .info-box {
+            background: #eaf6ed;
+            border: 1px solid #cce8d2;
+            padding: 18px 20px;
+            border-radius: 13px;
+            margin-bottom: 25px;
+            color: #285b35;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* GRID */
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* CARD */
+
+        .document-card {
+            background: white;
+            border: 1px solid #e1e8e2;
+            border-radius: 17px;
+            padding: 24px;
+            box-shadow: 0 7px 25px rgba(30, 60, 40, 0.04);
+        }
+
+        .document-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .document-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+            background: #e8f5eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #f0f2f1;
+            color: #6d7770;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .status.uploaded {
+            background: #e7f7eb;
+            color: #22713b;
+        }
+
+        .document-card h2 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .document-card p {
+            color: #6c786f;
+            font-size: 13px;
+            min-height: 42px;
+            margin-bottom: 18px;
+        }
+
+        /* FILE INPUT */
+
+        .file-area {
+            border: 1.5px dashed #b9cdbd;
+            background: #fafcfb;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .file-area:hover {
+            border-color: #3b9655;
+            background: #f4faf5;
+        }
+
+        .file-area input {
+            display: none;
+        }
+
+        .file-label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .upload-symbol {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .file-label strong {
+            display: block;
+            color: #285d37;
+            font-size: 14px;
+        }
+
+        .file-label span {
+            color: #7b867f;
+            font-size: 12px;
+        }
+
+        /* FILE NAME */
+
+        .file-name {
+            margin-top: 12px;
+            padding: 9px 11px;
+            background: #f0f7f1;
+            border-radius: 8px;
+            color: #28623a;
+            font-size: 12px;
+            display: none;
+            word-break: break-word;
+        }
+
+        /* ACTION */
+
+        .actions {
+            margin-top: 28px;
+            background: white;
+            border: 1px solid #e1e8e2;
+            border-radius: 17px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .actions h2 {
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .actions p {
+            color: #707b73;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .save-btn {
+            border: none;
+            background: linear-gradient(135deg, #19733a, #2e9951);
+            color: white;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .success {
+            color: #25723d;
+        }
+
+        /* NOTE */
+
+        .note {
+            margin-top: 22px;
+            padding: 17px;
+            background: #fffaf0;
+            border: 1px solid #f0dfb7;
+            border-radius: 12px;
+            color: #735b29;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .dashboard-link {
+                display: none;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+            .container {
+                padding: 0 12px;
+                margin-top: 22px;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <a href="dashboard.html" class="logo">
+        <span class="logo-icon">🌱</span>
+        CarbonReady
+    </a>
+
+    <div class="nav-right">
+
+        <a href="dashboard.html" class="dashboard-link">
+            Dashboard
+        </a>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <div class="header-inner">
+
+        <div class="eyebrow">
+            Farm Documentation
+        </div>
+
+        <h1>
+            Your Farm Documents
+        </h1>
+
+        <p>
+            Keep important farm records organized in one place.
+            These documents can support future verification and
+            carbon-credit program participation.
+        </p>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+    <div class="info-box">
+
+        <strong>📁 Why are documents important?</strong>
+
+        Farm records help demonstrate your land details,
+        farming practices, input usage and sustainability
+        activities during future verification.
+
+    </div>
+
+
+    <div class="documents-grid">
+
+
+        <!-- LAND -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    📜
+                </div>
+
+                <span class="status" id="status-land">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Land Records
+            </h2>
+
+            <p>
+                Land ownership, lease documents,
+                land records or other proof related
+                to your agricultural land.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="land"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onchange="showFile('land')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Land Document
+                    </strong>
+
+                    <span>
+                        PDF, JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-land"></div>
+
+        </div>
+
+
+        <!-- CROP -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    🌾
+                </div>
+
+                <span class="status" id="status-crop">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Crop Records
+            </h2>
+
+            <p>
+                Crop history, cultivation records,
+                seasonal crop information and
+                crop rotation records.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="crop"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onchange="showFile('crop')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Crop Record
+                    </strong>
+
+                    <span>
+                        PDF, JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-crop"></div>
+
+        </div>
+
+
+        <!-- SOIL -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    🧪
+                </div>
+
+                <span class="status" id="status-soil">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Soil Test Reports
+            </h2>
+
+            <p>
+                Soil health reports, soil testing
+                results and other soil-related
+                records.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="soil"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onchange="showFile('soil')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Soil Report
+                    </strong>
+
+                    <span>
+                        PDF, JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-soil"></div>
+
+        </div>
+
+
+        <!-- INPUT -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    🧴
+                </div>
+
+                <span class="status" id="status-input">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Input Usage Records
+            </h2>
+
+            <p>
+                Fertilizer, pesticide, organic input
+                and other agricultural input records.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="input"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onchange="showFile('input')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Input Record
+                    </strong>
+
+                    <span>
+                        PDF, JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-input"></div>
+
+        </div>
+
+
+        <!-- IRRIGATION -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    💧
+                </div>
+
+                <span class="status" id="status-irrigation">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Irrigation Records
+            </h2>
+
+            <p>
+                Irrigation information, water source,
+                water management or conservation records.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="irrigation"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onchange="showFile('irrigation')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Irrigation Record
+                    </strong>
+
+                    <span>
+                        PDF, JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-irrigation"></div>
+
+        </div>
+
+
+        <!-- FARM PHOTOS -->
+
+        <div class="document-card">
+
+            <div class="document-top">
+
+                <div class="document-icon">
+                    📷
+                </div>
+
+                <span class="status" id="status-photos">
+                    Not Uploaded
+                </span>
+
+            </div>
+
+            <h2>
+                Farm Activity Photos
+            </h2>
+
+            <p>
+                Photos showing sustainable farming,
+                crop residue management, composting,
+                irrigation or other activities.
+            </p>
+
+            <div class="file-area">
+
+                <label class="file-label">
+
+                    <input
+                        type="file"
+                        id="photos"
+                        accept=".jpg,.jpeg,.png"
+                        multiple
+                        onchange="showFile('photos')"
+                    >
+
+                    <div class="upload-symbol">
+                        📤
+                    </div>
+
+                    <strong>
+                        Choose Farm Photos
+                    </strong>
+
+                    <span>
+                        JPG or PNG
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="file-name" id="name-photos"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SAVE -->
+
+    <div class="actions">
+
+        <h2>
+            Save Your Document Information
+        </h2>
+
+        <p>
+            Your selected documents will be recorded
+            locally for this prototype.
+        </p>
+
+        <button class="save-btn" onclick="saveDocuments()">
+            Save Document Status
+        </button>
+
+        <div id="message" class="message success"></div>
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>⚠ Prototype Note:</strong>
+
+        This prototype records document status in the browser.
+        Actual secure file upload and cloud storage will be
+        connected through the backend in the next stage.
+
+    </div>
+
+</main>
+
+
+<script>
+
+    const documentTypes = [
+        "land",
+        "crop",
+        "soil",
+        "input",
+        "irrigation",
+        "photos"
+    ];
+
+
+    /* SHOW SELECTED FILE */
+
+    function showFile(type) {
+
+        const input =
+            document.getElementById(type);
+
+        const nameBox =
+            document.getElementById("name-" + type);
+
+        const status =
+            document.getElementById("status-" + type);
+
+
+        if (input.files.length > 0) {
+
+            if (input.multiple) {
+
+                const count = input.files.length;
+
+                nameBox.textContent =
+                    count + " file(s) selected";
+
+            } else {
+
+                nameBox.textContent =
+                    input.files[0].name;
+
+            }
+
+            nameBox.style.display = "block";
+
+            status.textContent = "Selected";
+
+            status.classList.add("uploaded");
+
+        } else {
+
+            nameBox.style.display = "none";
+
+            status.textContent = "Not Uploaded";
+
+            status.classList.remove("uploaded");
+
+        }
+
+    }
+
+
+    /* SAVE */
+
+    function saveDocuments() {
+
+        const documents = {};
+
+        documentTypes.forEach(type => {
+
+            const input =
+                document.getElementById(type);
+
+            if (input.files.length > 0) {
+
+                documents[type] = {
+                    uploaded: true,
+                    fileCount: input.files.length,
+                    fileNames:
+                        [...input.files].map(
+                            file => file.name
+                        )
+                };
+
+            } else {
+
+                documents[type] = {
+                    uploaded: false,
+                    fileCount: 0,
+                    fileNames: []
+                };
+
+            }
+
+        });
+
+
+        localStorage.setItem(
+            "carbonReadyDocuments",
+            JSON.stringify(documents)
+        );
+
+
+        const message =
+            document.getElementById("message");
+
+        message.textContent =
+            "✓ Document status saved successfully.";
+
+        message.style.display = "block";
+
+
+        setTimeout(() => {
+
+            message.style.display = "none";
+
+        }, 4000);
+
+    }
+
+
+    /* LOAD SAVED STATUS */
+
+    function loadDocuments() {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "carbonReadyDocuments"
+                )
+            );
+
+
+        if (!saved) return;
+
+
+        documentTypes.forEach(type => {
+
+            if (
+                saved[type] &&
+                saved[type].uploaded
+            ) {
+
+                const status =
+                    document.getElementById(
+                        "status-" + type
+                    );
+
+                const nameBox =
+                    document.getElementById(
+                        "name-" + type
+                    );
+
+
+                status.textContent =
+                    "Previously Added";
+
+                status.classList.add("uploaded");
+
+
+                if (
+                    saved[type].fileNames &&
+                    saved[type].fileNames.length
+                ) {
+
+                    nameBox.textContent =
+                        saved[type]
+                            .fileNames
+                            .join(", ");
+
+                    nameBox.style.display =
+                        "block";
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "carbonReadyToken"
+        );
+
+        localStorage.removeItem(
+            "carbonReadyUser"
+        );
+
+        localStorage.removeItem(
+            "carbonReadyAssessment"
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+    loadDocuments();
+
+</script>
+
+</body>
+</html>

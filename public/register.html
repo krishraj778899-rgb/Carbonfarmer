@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - CarbonReady</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ================================
+           CARBONREADY REGISTER PAGE
+        ================================= */
+
+        .register-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.10), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08), transparent 30%),
+                #f7faf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 1050px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            background: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(15, 23, 42, 0.12);
+        }
+
+        /* LEFT SIDE */
+
+        .register-info {
+            position: relative;
+            padding: 55px 45px;
+            background: linear-gradient(145deg, #123d2a, #17633e);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .register-info::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            right: -100px;
+            top: -70px;
+        }
+
+        .register-info::after {
+            content: "";
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.08);
+            left: -220px;
+            bottom: -180px;
+        }
+
+        .register-logo {
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 55px;
+        }
+
+        .register-logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .register-logo span {
+            color: #8ff0b0;
+        }
+
+        .register-info-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .register-info h1 {
+            font-size: 40px;
+            line-height: 1.15;
+            margin: 0 0 20px;
+            letter-spacing: -1px;
+        }
+
+        .register-info > .register-info-content > p {
+            color: rgba(255,255,255,0.78);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 390px;
+            margin-bottom: 35px;
+        }
+
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .benefit-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .benefit-text strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .benefit-text span {
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* RIGHT SIDE */
+
+        .register-form-area {
+            padding: 50px 55px;
+        }
+
+        .form-top {
+            margin-bottom: 28px;
+        }
+
+        .form-top h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            color: #17221c;
+            letter-spacing: -0.5px;
+        }
+
+        .form-top p {
+            margin: 0;
+            color: #718078;
+            font-size: 14px;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #27352d;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #829088;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #dce5df;
+            border-radius: 11px;
+            background: #fbfdfc;
+            padding: 0 14px 0 42px;
+            font-size: 14px;
+            color: #26332c;
+            outline: none;
+            transition: 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #28a65a;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 166, 90, 0.09);
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #7b8880;
+            font-size: 15px;
+            padding: 5px;
+        }
+
+        .password-strength {
+            display: none;
+            margin-top: 2px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            border-radius: 10px;
+            background: #e5ebe7;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .strength-text {
+            font-size: 11px;
+            color: #7b8880;
+            margin-top: 5px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin-top: 2px;
+        }
+
+        .terms input {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            accent-color: #249653;
+            cursor: pointer;
+        }
+
+        .terms label {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #718078;
+            cursor: pointer;
+        }
+
+        .terms a {
+            color: #21894b;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .register-btn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #198c49, #2ebc67);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 750;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(34, 157, 82, 0.20);
+            transition: 0.25s ease;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(34, 157, 82, 0.28);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            display: none;
+            padding: 11px 13px;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #eaf8ef;
+            color: #17733c;
+            border: 1px solid #bde6ca;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #b42318;
+            border: 1px solid #f2c3c3;
+        }
+
+        .login-link {
+            text-align: center;
+            color: #758179;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .login-link a {
+            color: #198c49;
+            font-weight: 750;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .secure-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            color: #98a29d;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+            .register-container {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .register-info {
+                padding: 40px 35px;
+            }
+
+            .register-logo {
+                margin-bottom: 30px;
+            }
+
+            .register-info h1 {
+                font-size: 32px;
+            }
+
+            .benefit-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .register-form-area {
+                padding: 40px 35px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .register-page {
+                padding: 15px;
+            }
+
+            .register-container {
+                border-radius: 20px;
+            }
+
+            .register-info {
+                padding: 32px 25px;
+            }
+
+            .register-info h1 {
+                font-size: 28px;
+            }
+
+            .register-info > .register-info-content > p {
+                font-size: 14px;
+            }
+
+            .benefit-list {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .register-form-area {
+                padding: 32px 22px;
+            }
+
+            .form-top h2 {
+                font-size: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="register-page">
+
+        <div class="register-container">
+
+            <!-- ==========================
+                 LEFT INFORMATION PANEL
+            =========================== -->
+
+            <section class="register-info">
+
+                <div class="register-logo">
+                    <div class="register-logo-icon">🌱</div>
+                    <div>Carbon<span>Ready</span></div>
+                </div>
+
+                <div class="register-info-content">
+
+                    <h1>Start Your Carbon Readiness Journey.</h1>
+
+                    <p>
+                        Create your free farmer account and understand
+                        how ready your farm is for future carbon-credit
+                        opportunities.
+                    </p>
+
+                    <div class="benefit-list">
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📊</div>
+
+                            <div class="benefit-text">
+                                <strong>Readiness Assessment</strong>
+                                <span>
+                                    Evaluate your farm across key sustainability areas.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🌾</div>
+
+                            <div class="benefit-text">
+                                <strong>Farm Insights</strong>
+                                <span>
+                                    Organize important information about your farm.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💡</div>
+
+                            <div class="benefit-text">
+                                <strong>Actionable Recommendations</strong>
+                                <span>
+                                    Discover areas where sustainable practices can improve.
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==========================
+                 REGISTRATION FORM
+            =========================== -->
+
+            <section class="register-form-area">
+
+                <div class="form-top">
+
+                    <h2>Create your account</h2>
+
+                    <p>
+                        Enter your details to get started with CarbonReady.
+                    </p>
+
+                </div>
+
+
+                <form id="registerForm" class="register-form">
+
+                    <!-- Name -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="firstName">
+                                First Name
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">👤</span>
+
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    placeholder="Enter first name"
+                                    autocomplete="given-name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="lastName">
+                                Last Name
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">👤</span>
+
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    placeholder="Enter last name"
+                                    autocomplete="family-name"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">✉️</span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Phone + State -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Mobile Number
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">📱</span>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="10-digit mobile number"
+                                    maxlength="10"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="state">
+                                State
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">📍</span>
+
+                                <select id="state" name="state" required>
+
+                                    <option value="">
+                                        Select state
+                                    </option>
+
+                                    <option>Andhra Pradesh</option>
+                                    <option>Assam</option>
+                                    <option>Bihar</option>
+                                    <option>Chhattisgarh</option>
+                                    <option>Delhi</option>
+                                    <option>Goa</option>
+                                    <option>Gujarat</option>
+                                    <option>Haryana</option>
+                                    <option>Himachal Pradesh</option>
+                                    <option>Jharkhand</option>
+                                    <option>Karnataka</option>
+                                    <option>Kerala</option>
+                                    <option>Madhya Pradesh</option>
+                                    <option>Maharashtra</option>
+                                    <option>Odisha</option>
+                                    <option>Punjab</option>
+                                    <option>Rajasthan</option>
+                                    <option>Tamil Nadu</option>
+                                    <option>Telangana</option>
+                                    <option>Uttar Pradesh</option>
+                                    <option>Uttarakhand</option>
+                                    <option>West Bengal</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <span class="input-icon">🔒</span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a strong password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                        <div class="password-strength" id="passwordStrength">
+
+                            <div class="strength-bar">
+                                <div
+                                    class="strength-fill"
+                                    id="strengthFill"
+                                ></div>
+                            </div>
+
+                            <div
+                                class="strength-text"
+                                id="strengthText"
+                            >
+                                Password strength
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <span class="input-icon">🔐</span>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="toggleConfirmPassword"
+                                aria-label="Show confirm password"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Terms -->
+
+                    <div class="terms">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            required
+                        >
+
+                        <label for="terms">
+                            I agree to the
+                            <a href="#" onclick="return false;">
+                                Terms of Use
+                            </a>
+                            and
+                            <a href="#" onclick="return false;">
+                                Privacy Policy
+                            </a>.
+                        </label>
+
+                    </div>
+
+
+                    <!-- Message -->
+
+                    <div
+                        id="formMessage"
+                        class="form-message"
+                    ></div>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="register-btn"
+                        id="registerBtn"
+                    >
+                        Create CarbonReady Account
+                    </button>
+
+
+                    <!-- Login -->
+
+                    <div class="login-link">
+
+                        Already have an account?
+
+                        <a href="login.html">
+                            Login here
+                        </a>
+
+                    </div>
+
+
+                    <div class="secure-note">
+                        🔒 Your information is kept secure.
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* =================================
+           PASSWORD SHOW / HIDE
+        ================================= */
+
+        function setupPasswordToggle(buttonId, inputId) {
+
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+
+            button.addEventListener("click", function () {
+
+                if (input.type === "password") {
+
+                    input.type = "text";
+                    button.textContent = "🙈";
+
+                } else {
+
+                    input.type = "password";
+                    button.textContent = "👁";
+
+                }
+
+            });
+
+        }
+
+        setupPasswordToggle(
+            "togglePassword",
+            "password"
+        );
+
+        setupPasswordToggle(
+            "toggleConfirmPassword",
+            "confirmPassword"
+        );
+
+
+        /* =================================
+           PASSWORD STRENGTH
+        ================================= */
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const passwordStrength =
+            document.getElementById("passwordStrength");
+
+        const strengthFill =
+            document.getElementById("strengthFill");
+
+        const strengthText =
+            document.getElementById("strengthText");
+
+
+        passwordInput.addEventListener("input", function () {
+
+            const password = passwordInput.value;
+
+            if (!password) {
+
+                passwordStrength.style.display = "none";
+                strengthFill.style.width = "0";
+                return;
+
+            }
+
+            passwordStrength.style.display = "block";
+
+            let score = 0;
+
+            if (password.length >= 6) score++;
+
+            if (password.length >= 10) score++;
+
+            if (/[A-Z]/.test(password)) score++;
+
+            if (/[0-9]/.test(password)) score++;
+
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+
+
+            if (score <= 1) {
+
+                strengthFill.style.width = "25%";
+                strengthText.textContent = "Weak password";
+
+            } else if (score <= 3) {
+
+                strengthFill.style.width = "60%";
+                strengthText.textContent = "Medium password";
+
+            } else {
+
+                strengthFill.style.width = "100%";
+                strengthText.textContent = "Strong password";
+
+            }
+
+        });
+
+
+        /* =================================
+           MOBILE NUMBER
+        ================================= */
+
+        const phoneInput =
+            document.getElementById("phone");
+
+        phoneInput.addEventListener("input", function () {
+
+            this.value = this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        });
+
+
+        /* =================================
+           REGISTRATION FORM
+        ================================= */
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const formMessage =
+            document.getElementById("formMessage");
+
+        const registerBtn =
+            document.getElementById("registerBtn");
+
+
+        registerForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+
+            const firstName =
+                document.getElementById("firstName").value.trim();
+
+            const lastName =
+                document.getElementById("lastName").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+            const state =
+                document.getElementById("state").value;
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            const terms =
+                document.getElementById("terms").checked;
+
+
+            /* Validation */
+
+            if (!firstName || !email || !phone || !state || !password) {
+
+                showMessage(
+                    "Please fill in all required fields.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (phone.length !== 10) {
+
+                showMessage(
+                    "Please enter a valid 10-digit mobile number.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                showMessage(
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (password !== confirmPassword) {
+
+                showMessage(
+                    "Passwords do not match.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (!terms) {
+
+                showMessage(
+                    "Please accept the Terms of Use and Privacy Policy.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* =================================
+               BACKEND CONNECTION
+               =================================
+
+               This endpoint will work when
+               the Node.js backend is connected.
+            */
+
+            registerBtn.disabled = true;
+            registerBtn.textContent = "Creating Account...";
+
+
+            try {
+
+                const response = await fetch("/api/register", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        state,
+                        password
+
+                    })
+
+                });
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Registration failed."
+                    );
+
+                }
+
+
+                showMessage(
+                    "Account created successfully! Redirecting to login...",
+                    "success"
+                );
+
+
+                registerForm.reset();
+
+                setTimeout(function () {
+
+                    window.location.href = "login.html";
+
+                }, 1500);
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                showMessage(
+                    error.message ||
+                    "Unable to create account. Please try again.",
+                    "error"
+                );
+
+            } finally {
+
+                registerBtn.disabled = false;
+                registerBtn.textContent =
+                    "Create CarbonReady Account";
+
+            }
+
+        });
+
+
+        /* =================================
+           MESSAGE FUNCTION
+        ================================= */
+
+        function showMessage(message, type) {
+
+            formMessage.textContent = message;
+
+            formMessage.className =
+                "form-message " + type;
+
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - CarbonReady</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =================================
+           CARBONREADY LOGIN PAGE
+        ================================= */
+
+        .login-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(34, 197, 94, 0.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(16, 185, 129, 0.08),
+                    transparent 30%
+                ),
+                #f7faf8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1050px;
+
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+
+            background: #ffffff;
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.12);
+        }
+
+
+        /* =================================
+           LEFT INFORMATION PANEL
+        ================================= */
+
+        .login-info {
+            position: relative;
+
+            padding: 55px 45px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #123d2a,
+                    #17633e
+                );
+
+            color: #ffffff;
+
+            overflow: hidden;
+        }
+
+        .login-info::before {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            right: -100px;
+            top: -70px;
+        }
+
+        .login-info::after {
+            content: "";
+
+            position: absolute;
+
+            width: 380px;
+            height: 380px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            left: -220px;
+            bottom: -180px;
+        }
+
+
+        /* LOGO */
+
+        .login-logo {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            margin-bottom: 55px;
+        }
+
+        .login-logo-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+        .login-logo span {
+            color: #8ff0b0;
+        }
+
+
+        /* LEFT CONTENT */
+
+        .login-info-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-info h1 {
+            font-size: 40px;
+
+            line-height: 1.15;
+
+            margin: 0 0 20px;
+
+            letter-spacing: -1px;
+        }
+
+        .login-info-description {
+            color:
+                rgba(255,255,255,0.78);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            max-width: 390px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* BENEFITS */
+
+        .login-benefits {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+        .login-benefit {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 14px;
+        }
+
+        .login-benefit-icon {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+        }
+
+        .login-benefit-text strong {
+            display: block;
+
+            font-size: 14px;
+
+            margin-bottom: 3px;
+        }
+
+        .login-benefit-text span {
+            color:
+                rgba(255,255,255,0.65);
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================
+           RIGHT LOGIN AREA
+        ================================= */
+
+        .login-form-area {
+            padding: 60px 65px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .login-top {
+            margin-bottom: 30px;
+        }
+
+        .login-top h2 {
+            margin: 0 0 8px;
+
+            font-size: 30px;
+
+            color: #17221c;
+
+            letter-spacing: -0.5px;
+        }
+
+        .login-top p {
+            margin: 0;
+
+            color: #718078;
+
+            font-size: 14px;
+        }
+
+
+        /* FORM */
+
+        .login-form {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #27352d;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #829088;
+
+            font-size: 16px;
+
+            pointer-events: none;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            height: 50px;
+
+            border: 1px solid #dce5df;
+
+            border-radius: 11px;
+
+            background: #fbfdfc;
+
+            padding:
+                0 14px 0 42px;
+
+            font-size: 14px;
+
+            color: #26332c;
+
+            outline: none;
+
+            transition: 0.25s ease;
+
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #28a65a;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(40, 166, 90, 0.09);
+        }
+
+
+        /* PASSWORD */
+
+        .password-wrapper input {
+            padding-right: 48px;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 13px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            color: #7b8880;
+
+            font-size: 15px;
+
+            padding: 5px;
+        }
+
+
+        /* OPTIONS */
+
+        .login-options {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-top: -2px;
+        }
+
+        .remember-me {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #718078;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+
+            accent-color: #249653;
+
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #198c49;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+
+        /* LOGIN BUTTON */
+
+        .login-btn {
+            width: 100%;
+
+            height: 51px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198c49,
+                    #2ebc67
+                );
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 750;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px
+                rgba(34, 157, 82, 0.20);
+
+            transition: 0.25s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(34, 157, 82, 0.28);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* MESSAGE */
+
+        .form-message {
+            display: none;
+
+            padding: 11px 13px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .form-message.success {
+            display: block;
+
+            background: #eaf8ef;
+
+            color: #17733c;
+
+            border:
+                1px solid #bde6ca;
+        }
+
+        .form-message.error {
+            display: block;
+
+            background: #fff0f0;
+
+            color: #b42318;
+
+            border:
+                1px solid #f2c3c3;
+        }
+
+
+        /* CREATE ACCOUNT */
+
+        .register-link {
+            text-align: center;
+
+            color: #758179;
+
+            font-size: 13px;
+
+            margin-top: 3px;
+        }
+
+        .register-link a {
+            color: #198c49;
+
+            font-weight: 750;
+
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* SECURITY NOTE */
+
+        .secure-note {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            color: #98a29d;
+
+            font-size: 11px;
+
+            margin-top: 4px;
+        }
+
+
+        /* BACK HOME */
+
+        .back-home {
+            text-align: center;
+
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            color: #7b8880;
+
+            font-size: 12px;
+
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: #198c49;
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 850px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+
+                max-width: 600px;
+            }
+
+            .login-info {
+                padding: 40px 35px;
+            }
+
+            .login-logo {
+                margin-bottom: 30px;
+            }
+
+            .login-info h1 {
+                font-size: 32px;
+            }
+
+            .login-benefits {
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .login-form-area {
+                padding: 45px 40px;
+            }
+        }
+
+
+        @media (max-width: 550px) {
+
+            .login-page {
+                padding: 15px;
+            }
+
+            .login-container {
+                border-radius: 20px;
+            }
+
+            .login-info {
+                padding: 32px 25px;
+            }
+
+            .login-info h1 {
+                font-size: 28px;
+            }
+
+            .login-info-description {
+                font-size: 14px;
+            }
+
+            .login-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .login-form-area {
+                padding: 35px 22px;
+            }
+
+            .login-top h2 {
+                font-size: 25px;
+            }
+
+            .login-options {
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-container">
+
+            <!-- =================================
+                 LEFT PANEL
+            ================================= -->
+
+            <section class="login-info">
+
+                <div class="login-logo">
+
+                    <div class="login-logo-icon">
+                        🌱
+                    </div>
+
+                    <div>
+                        Carbon<span>Ready</span>
+                    </div>
+
+                </div>
+
+
+                <div class="login-info-content">
+
+                    <h1>
+                        Welcome Back, Farmer.
+                    </h1>
+
+                    <p class="login-info-description">
+                        Continue your carbon readiness journey,
+                        review your farm information and discover
+                        practical steps toward sustainable farming.
+                    </p>
+
+
+                    <div class="login-benefits">
+
+                        <div class="login-benefit">
+
+                            <div class="login-benefit-icon">
+                                📊
+                            </div>
+
+                            <div class="login-benefit-text">
+
+                                <strong>
+                                    Track Your Readiness
+                                </strong>
+
+                                <span>
+                                    View your latest carbon readiness assessment.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-benefit">
+
+                            <div class="login-benefit-icon">
+                                🌾
+                            </div>
+
+                            <div class="login-benefit-text">
+
+                                <strong>
+                                    Manage Farm Details
+                                </strong>
+
+                                <span>
+                                    Keep your farm and crop information organized.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-benefit">
+
+                            <div class="login-benefit-icon">
+                                💡
+                            </div>
+
+                            <div class="login-benefit-text">
+
+                                <strong>
+                                    Get Recommendations
+                                </strong>
+
+                                <span>
+                                    Identify areas where your practices can improve.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 LOGIN FORM
+            ================================= -->
+
+            <section class="login-form-area">
+
+                <div class="login-top">
+
+                    <h2>
+                        Login to CarbonReady
+                    </h2>
+
+                    <p>
+                        Enter your account details to continue.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="loginForm"
+                    class="login-form"
+                >
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="login-options">
+
+                        <label class="remember-me">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot-password"
+                            id="forgotPassword"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="formMessage"
+                        class="form-message"
+                    ></div>
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginBtn"
+                    >
+                        Login to CarbonReady
+                    </button>
+
+
+                    <!-- REGISTER -->
+
+                    <div class="register-link">
+
+                        Don't have an account?
+
+                        <a href="register.html">
+                            Create Account
+                        </a>
+
+                    </div>
+
+
+                    <!-- SECURITY -->
+
+                    <div class="secure-note">
+
+                        🔒 Secure login protected by CarbonReady
+
+                    </div>
+
+
+                    <!-- HOME -->
+
+                    <div class="back-home">
+
+                        <a href="index.html">
+                            ← Back to CarbonReady Home
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* =================================
+           PASSWORD SHOW / HIDE
+        ================================= */
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const passwordInput =
+            document.getElementById("password");
+
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                if (passwordInput.type === "password") {
+
+                    passwordInput.type = "text";
+
+                    togglePassword.textContent = "🙈";
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    togglePassword.textContent = "👁";
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =================================
+           LOGIN FORM
+        ================================= */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const formMessage =
+            document.getElementById("formMessage");
+
+        const loginBtn =
+            document.getElementById("loginBtn");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+                const rememberMe =
+                    document
+                        .getElementById("rememberMe")
+                        .checked;
+
+
+                /* VALIDATION */
+
+                if (!email || !password) {
+
+                    showMessage(
+                        "Please enter your email and password.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!isValidEmail(email)) {
+
+                    showMessage(
+                        "Please enter a valid email address.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                loginBtn.disabled = true;
+
+                loginBtn.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    /* ==========================
+                       BACKEND LOGIN API
+                    =========================== */
+
+                    const response =
+                        await fetch(
+                            "/api/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    email,
+                                    password
+
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            "Login failed."
+                        );
+
+                    }
+
+
+                    /* ==========================
+                       SAVE LOGIN INFORMATION
+                    =========================== */
+
+                    if (data.token) {
+
+                        localStorage.setItem(
+                            "carbonReadyToken",
+                            data.token
+                        );
+
+                    }
+
+
+                    if (data.user) {
+
+                        localStorage.setItem(
+                            "carbonReadyUser",
+                            JSON.stringify(data.user)
+                        );
+
+                    }
+
+
+                    /* Remember email */
+
+                    if (rememberMe) {
+
+                        localStorage.setItem(
+                            "carbonReadyEmail",
+                            email
+                        );
+
+                    } else {
+
+                        localStorage.removeItem(
+                            "carbonReadyEmail"
+                        );
+
+                    }
+
+
+                    showMessage(
+                        "Login successful! Redirecting to dashboard...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        },
+                        1000
+                    );
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to login. Please try again.",
+                        "error"
+                    );
+
+
+                    loginBtn.disabled = false;
+
+                    loginBtn.textContent =
+                        "Login to CarbonReady";
+
+                }
+
+            }
+        );
+
+
+        /* =================================
+           EMAIL VALIDATION
+        ================================= */
+
+        function isValidEmail(email) {
+
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(email);
+
+        }
+
+
+        /* =================================
+           MESSAGE
+        ================================= */
+
+        function showMessage(message, type) {
+
+            formMessage.textContent =
+                message;
+
+            formMessage.className =
+                "form-message " + type;
+
+        }
+
+
+        /* =================================
+           REMEMBERED EMAIL
+        ================================= */
+
+        const savedEmail =
+            localStorage.getItem(
+                "carbonReadyEmail"
+            );
+
+
+        if (savedEmail) {
+
+            document.getElementById("email").value =
+                savedEmail;
+
+            document.getElementById("rememberMe").checked =
+                true;
+
+        }
+
+
+        /* =================================
+           FORGOT PASSWORD
+        ================================= */
+
+        document
+            .getElementById("forgotPassword")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    showMessage(
+                        "Password reset will be available after the backend email service is connected.",
+                        "error"
+                    );
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>

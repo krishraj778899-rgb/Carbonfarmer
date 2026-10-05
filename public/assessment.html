@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Assessment - CarbonReady</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f5f8f5;
+            color: #17251b;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e3e9e4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 21px;
+            font-weight: 800;
+            color: #163d25;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #1d7a42, #42b86c);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .dashboard-link {
+            text-decoration: none;
+            color: #31543c;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #edf6ef;
+            color: #1d6b39;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, #103b21, #1d6b3a);
+            color: white;
+            padding: 55px 6%;
+        }
+
+        .page-header-inner {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: #a9e8ba;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            max-width: 720px;
+            color: #d8eddd;
+            font-size: 16px;
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1100px;
+            margin: 35px auto 70px;
+            padding: 0 20px;
+        }
+
+        .info-box {
+            background: #eaf6ed;
+            border: 1px solid #cce8d2;
+            padding: 17px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            color: #275c35;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* PROGRESS */
+        .progress-wrapper {
+            background: white;
+            border: 1px solid #e1e8e2;
+            padding: 18px 20px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 88px;
+            z-index: 50;
+            box-shadow: 0 5px 20px rgba(30, 60, 40, 0.05);
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .progress-bg {
+            height: 9px;
+            background: #e7eee9;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #238247, #52bd70);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        /* SECTION */
+        .assessment-section {
+            background: white;
+            border: 1px solid #e2e9e3;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px rgba(30, 60, 40, 0.04);
+        }
+
+        .section-header {
+            padding: 23px 25px;
+            background: #fbfdfb;
+            border-bottom: 1px solid #e8eee9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #e5f4e8;
+            color: #1e713c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .section-header h2 {
+            font-size: 19px;
+            margin-bottom: 2px;
+        }
+
+        .section-header p {
+            font-size: 13px;
+            color: #708077;
+        }
+
+        .points {
+            background: #edf7ef;
+            color: #28713e;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .questions {
+            padding: 25px;
+        }
+
+        .question {
+            padding: 18px 0;
+            border-bottom: 1px solid #edf1ed;
+        }
+
+        .question:first-child {
+            padding-top: 0;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .question-title {
+            font-weight: 700;
+            margin-bottom: 13px;
+            color: #25382b;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .option {
+            position: relative;
+        }
+
+        .option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option label {
+            display: block;
+            padding: 13px 15px;
+            border: 1px solid #dfe7e1;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #506057;
+            background: #fff;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .option label:hover {
+            border-color: #55a86b;
+            background: #f7fcf8;
+        }
+
+        .option input:checked + label {
+            border-color: #2d8a4d;
+            background: #eaf7ed;
+            color: #1b6334;
+            font-weight: 700;
+            box-shadow: inset 0 0 0 1px #2d8a4d;
+        }
+
+        /* CHECKBOXES */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .check-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #dfe7e1;
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #526058;
+        }
+
+        .check-option:hover {
+            background: #f7fcf8;
+        }
+
+        .check-option input {
+            width: 17px;
+            height: 17px;
+            accent-color: #258247;
+        }
+
+        /* SUBMIT */
+        .submit-area {
+            background: white;
+            border: 1px solid #e2e9e3;
+            border-radius: 18px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .submit-area h2 {
+            margin-bottom: 7px;
+            font-size: 22px;
+        }
+
+        .submit-area p {
+            color: #69776e;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            border: none;
+            background: linear-gradient(135deg, #19733a, #2e9951);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 11px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(31, 117, 60, 0.2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .required {
+            color: #d34b4b;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .dashboard-link {
+                display: none;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+            .container {
+                padding: 0 12px;
+                margin-top: 22px;
+            }
+
+            .option-grid,
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                padding: 18px;
+            }
+
+            .questions {
+                padding: 20px;
+            }
+
+            .section-header h2 {
+                font-size: 17px;
+            }
+
+            .points {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="dashboard.html" class="logo">
+        <span class="logo-icon">🌱</span>
+        CarbonReady
+    </a>
+
+    <div class="nav-right">
+        <a href="dashboard.html" class="dashboard-link">Dashboard</a>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+
+<header class="page-header">
+    <div class="page-header-inner">
+        <div class="eyebrow">Carbon Readiness Assessment</div>
+        <h1>Assess Your Farm's Carbon Readiness</h1>
+        <p>
+            Answer a few questions about your land, crops, farming practices,
+            water management, soil health and documentation.
+            Your answers will generate an indicative readiness score out of 100.
+        </p>
+    </div>
+</header>
+
+
+<main class="container">
+
+    <div class="info-box">
+        <strong>🌱 How this assessment works</strong>
+        Your farm is evaluated across 7 areas. Each area contributes to a
+        maximum score of 100 points. Answer honestly based on your current
+        farming practices.
+    </div>
+
+
+    <div class="progress-wrapper">
+        <div class="progress-top">
+            <span>Assessment Progress</span>
+            <span id="progressText">0%</span>
+        </div>
+
+        <div class="progress-bg">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+
+    <form id="assessmentForm">
+
+        <!-- 1 LAND -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">01</div>
+                    <div>
+                        <h2>Land Information</h2>
+                        <p>Basic information about your agricultural land</p>
+                    </div>
+                </div>
+
+                <span class="points">15 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+                    <div class="question-title">
+                        1. Do you have clear information about your farm's land area?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+                        <div class="option">
+                            <input type="radio" name="landAreaInfo" value="yes" required>
+                            <label>Yes, I have accurate records</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="landAreaInfo" value="partial">
+                            <label>I have an approximate idea</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="landAreaInfo" value="no">
+                            <label>No clear information</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="question">
+                    <div class="question-title">
+                        2. Is your land ownership/lease information documented?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+                        <div class="option">
+                            <input type="radio" name="landDocument" value="yes" required>
+                            <label>Yes, documented</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="landDocument" value="partial">
+                            <label>Partially documented</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="landDocument" value="no">
+                            <label>Not documented</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 2 CROP -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">02</div>
+                    <div>
+                        <h2>Crop History</h2>
+                        <p>Understand your crop production history</p>
+                    </div>
+                </div>
+
+                <span class="points">15 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+                    <div class="question-title">
+                        3. Do you maintain records of crops grown on your farm?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+                        <div class="option">
+                            <input type="radio" name="cropRecords" value="yes" required>
+                            <label>Yes, for multiple years</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="cropRecords" value="some">
+                            <label>Only recent records</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="cropRecords" value="no">
+                            <label>No records</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="question">
+                    <div class="question-title">
+                        4. Do you practice crop rotation?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+                        <div class="option">
+                            <input type="radio" name="cropRotation" value="regular" required>
+                            <label>Yes, regularly</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="cropRotation" value="sometimes">
+                            <label>Sometimes</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="cropRotation" value="no">
+                            <label>No</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 3 PRACTICES -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">03</div>
+                    <div>
+                        <h2>Sustainable Farming Practices</h2>
+                        <p>Environment-friendly practices used on your farm</p>
+                    </div>
+                </div>
+
+                <span class="points">20 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+
+                    <div class="question-title">
+                        5. Which sustainable practices do you currently use?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="checkbox-grid">
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="cover">
+                            Cover cropping
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="organic">
+                            Organic manure / compost
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="tillage">
+                            Reduced / minimum tillage
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="agroforestry">
+                            Agroforestry / trees
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="residue">
+                            Crop residue management
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="practice" value="ipm">
+                            Integrated pest management
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="question">
+
+                    <div class="question-title">
+                        6. Do you avoid burning crop residues?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="residueBurning" value="never" required>
+                            <label>Yes, I never burn residues</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="residueBurning" value="sometimes">
+                            <label>Sometimes</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="residueBurning" value="often">
+                            <label>Often burn residues</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 4 INPUT -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">04</div>
+                    <div>
+                        <h2>Input Usage</h2>
+                        <p>Fertilizer, pesticide and organic input management</p>
+                    </div>
+                </div>
+
+                <span class="points">10 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+
+                    <div class="question-title">
+                        7. How do you manage fertilizer usage?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="fertilizer" value="balanced" required>
+                            <label>Based on soil/crop requirements</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="fertilizer" value="normal">
+                            <label>General recommended quantity</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="fertilizer" value="high">
+                            <label>High / frequent usage</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="question">
+
+                    <div class="question-title">
+                        8. Do you use organic inputs?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="organicInput" value="regular" required>
+                            <label>Regularly</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="organicInput" value="sometimes">
+                            <label>Sometimes</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="organicInput" value="no">
+                            <label>No</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 5 IRRIGATION -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">05</div>
+                    <div>
+                        <h2>Irrigation & Water Management</h2>
+                        <p>Water source and efficient irrigation practices</p>
+                    </div>
+                </div>
+
+                <span class="points">10 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+
+                    <div class="question-title">
+                        9. What irrigation method do you mainly use?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="irrigation" value="drip" required>
+                            <label>Drip irrigation</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="irrigation" value="sprinkler">
+                            <label>Sprinkler</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="irrigation" value="flood">
+                            <label>Flood / surface irrigation</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="irrigation" value="rain">
+                            <label>Mostly rain-fed</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="question">
+
+                    <div class="question-title">
+                        10. Do you use water conservation practices?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="waterSaving" value="yes" required>
+                            <label>Yes</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="waterSaving" value="partial">
+                            <label>Partially</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="waterSaving" value="no">
+                            <label>No</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 6 SOIL -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">06</div>
+                    <div>
+                        <h2>Soil Management</h2>
+                        <p>Practices that support soil health and carbon storage</p>
+                    </div>
+                </div>
+
+                <span class="points">15 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+
+                    <div class="question-title">
+                        11. Which soil-management practices do you use?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="checkbox-grid">
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="testing">
+                            Regular soil testing
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="compost">
+                            Compost / organic matter
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="mulching">
+                            Mulching
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="cover">
+                            Cover crops
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="erosion">
+                            Erosion control
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="soil" value="reduced">
+                            Reduced tillage
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="question">
+
+                    <div class="question-title">
+                        12. Do you monitor soil health over time?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="soilMonitoring" value="regular" required>
+                            <label>Yes, regularly</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="soilMonitoring" value="sometimes">
+                            <label>Sometimes</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="soilMonitoring" value="no">
+                            <label>No</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 7 DOCUMENTATION -->
+        <section class="assessment-section">
+
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-number">07</div>
+                    <div>
+                        <h2>Documentation</h2>
+                        <p>Records needed for future verification</p>
+                    </div>
+                </div>
+
+                <span class="points">15 Points</span>
+            </div>
+
+            <div class="questions">
+
+                <div class="question">
+
+                    <div class="question-title">
+                        13. Which records do you currently maintain?
+                    </div>
+
+                    <div class="checkbox-grid">
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="land">
+                            Land records
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="crop">
+                            Crop records
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="input">
+                            Input usage records
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="irrigation">
+                            Irrigation records
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="soil">
+                            Soil test records
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" name="documents" value="photos">
+                            Farm activity photos
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="question">
+
+                    <div class="question-title">
+                        14. Are your farm records organized and easily available?
+                        <span class="required">*</span>
+                    </div>
+
+                    <div class="option-grid">
+
+                        <div class="option">
+                            <input type="radio" name="recordOrganization" value="yes" required>
+                            <label>Yes, well organized</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="recordOrganization" value="partial">
+                            <label>Some records available</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" name="recordOrganization" value="no">
+                            <label>Not organized</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <div class="submit-area">
+
+            <h2>Ready to See Your Carbon Readiness?</h2>
+
+            <p>
+                Submit your assessment to generate your readiness score,
+                improvement areas and recommended actions.
+            </p>
+
+            <button type="submit" class="submit-btn">
+                Calculate My Readiness Score →
+            </button>
+
+        </div>
+
+    </form>
+
+</main>
+
+
+<script>
+
+    const form = document.getElementById("assessmentForm");
+
+    const farmData =
+        JSON.parse(localStorage.getItem("carbonReadyFarm")) || {};
+
+
+    /* --------------------------------
+       PROGRESS
+    -------------------------------- */
+
+    function updateProgress() {
+
+        const requiredInputs =
+            form.querySelectorAll("[required]");
+
+        let answered = 0;
+
+        requiredInputs.forEach(input => {
+
+            if (input.type === "radio") {
+
+                const group =
+                    form.querySelectorAll(
+                        `input[name="${input.name}"]:checked`
+                    );
+
+                if (group.length > 0) {
+                    answered++;
+                }
+
+            }
+
+        });
+
+        const groups = [
+            "landAreaInfo",
+            "landDocument",
+            "cropRecords",
+            "cropRotation",
+            "residueBurning",
+            "fertilizer",
+            "organicInput",
+            "irrigation",
+            "waterSaving",
+            "soilMonitoring",
+            "recordOrganization"
+        ];
+
+        let completed = 0;
+
+        groups.forEach(name => {
+
+            if (
+                form.querySelector(
+                    `input[name="${name}"]:checked`
+                )
+            ) {
+                completed++;
+            }
+
+        });
+
+        const percentage =
+            Math.round((completed / groups.length) * 100);
+
+        document.getElementById("progressFill").style.width =
+            percentage + "%";
+
+        document.getElementById("progressText").textContent =
+            percentage + "%";
+    }
+
+
+    form.addEventListener("change", updateProgress);
+
+
+    /* --------------------------------
+       SCORE HELPERS
+    -------------------------------- */
+
+    function selected(name) {
+
+        const element =
+            form.querySelector(
+                `input[name="${name}"]:checked`
+            );
+
+        return element ? element.value : "";
+    }
+
+
+    function checkedValues(name) {
+
+        return [
+            ...form.querySelectorAll(
+                `input[name="${name}"]:checked`
+            )
+        ].map(input => input.value);
+
+    }
+
+
+    /* --------------------------------
+       SUBMIT
+    -------------------------------- */
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        /* LAND — 15 */
+        let landScore = 0;
+
+        const landAreaInfo = selected("landAreaInfo");
+        const landDocument = selected("landDocument");
+
+        if (landAreaInfo === "yes") landScore += 5;
+        else if (landAreaInfo === "partial") landScore += 3;
+
+        if (landDocument === "yes") landScore += 10;
+        else if (landDocument === "partial") landScore += 5;
+
+
+        /* CROP — 15 */
+        let cropScore = 0;
+
+        const cropRecords = selected("cropRecords");
+        const cropRotation = selected("cropRotation");
+
+        if (cropRecords === "yes") cropScore += 8;
+        else if (cropRecords === "some") cropScore += 4;
+
+        if (cropRotation === "regular") cropScore += 7;
+        else if (cropRotation === "sometimes") cropScore += 4;
+
+
+        /* PRACTICES — 20 */
+        let practiceScore = 0;
+
+        const practices = checkedValues("practice");
+        const residueBurning = selected("residueBurning");
+
+        practiceScore += Math.min(
+            practices.length * 2,
+            12
+        );
+
+        if (residueBurning === "never") {
+            practiceScore += 8;
+        } else if (residueBurning === "sometimes") {
+            practiceScore += 4;
+        }
+
+
+        /* INPUTS — 10 */
+        let inputScore = 0;
+
+        const fertilizer = selected("fertilizer");
+        const organicInput = selected("organicInput");
+
+        if (fertilizer === "balanced") inputScore += 5;
+        else if (fertilizer === "normal") inputScore += 3;
+
+        if (organicInput === "regular") inputScore += 5;
+        else if (organicInput === "sometimes") inputScore += 2;
+
+
+        /* IRRIGATION — 10 */
+        let irrigationScore = 0;
+
+        const irrigation = selected("irrigation");
+        const waterSaving = selected("waterSaving");
+
+        if (irrigation === "drip") irrigationScore += 5;
+        else if (irrigation === "sprinkler") irrigationScore += 4;
+        else if (irrigation === "rain") irrigationScore += 3;
+        else if (irrigation === "flood") irrigationScore += 1;
+
+        if (waterSaving === "yes") irrigationScore += 5;
+        else if (waterSaving === "partial") irrigationScore += 3;
+
+
+        /* SOIL — 15 */
+        let soilScore = 0;
+
+        const soil = checkedValues("soil");
+        const soilMonitoring = selected("soilMonitoring");
+
+        soilScore += Math.min(
+            soil.length * 2,
+            10
+        );
+
+        if (soilMonitoring === "regular") {
+            soilScore += 5;
+        } else if (soilMonitoring === "sometimes") {
+            soilScore += 3;
+        }
+
+
+        /* DOCUMENTS — 15 */
+        let documentScore = 0;
+
+        const documents = checkedValues("documents");
+        const recordOrganization =
+            selected("recordOrganization");
+
+        documentScore += Math.min(
+            documents.length * 2,
+            10
+        );
+
+        if (recordOrganization === "yes") {
+            documentScore += 5;
+        } else if (recordOrganization === "partial") {
+            documentScore += 3;
+        }
+
+
+        /* TOTAL */
+
+        const totalScore =
+            landScore +
+            cropScore +
+            practiceScore +
+            inputScore +
+            irrigationScore +
+            soilScore +
+            documentScore;
+
+
+        let level = "";
+
+        if (totalScore >= 80) {
+            level = "Highly Ready";
+        } else if (totalScore >= 60) {
+            level = "Moderately Ready";
+        } else if (totalScore >= 40) {
+            level = "Needs Improvement";
+        } else {
+            level = "Not Ready Yet";
+        }
+
+
+        /* --------------------------------
+           MISSING AREAS
+        -------------------------------- */
+
+        const missing = [];
+        const recommendations = [];
+
+
+        if (landScore < 10) {
+            missing.push("Land Information");
+
+            recommendations.push(
+                "Maintain accurate land area and ownership/lease records."
+            );
+        }
+
+
+        if (cropScore < 10) {
+            missing.push("Crop History");
+
+            recommendations.push(
+                "Maintain multi-year crop records and practice crop rotation."
+            );
+        }
+
+
+        if (practiceScore < 14) {
+            missing.push("Sustainable Farming Practices");
+
+            recommendations.push(
+                "Consider cover crops, organic inputs, reduced tillage and residue management."
+            );
+        }
+
+
+        if (inputScore < 7) {
+            missing.push("Input Usage");
+
+            recommendations.push(
+                "Use fertilizers according to crop and soil requirements and increase organic inputs."
+            );
+        }
+
+
+        if (irrigationScore < 7) {
+            missing.push("Irrigation");
+
+            recommendations.push(
+                "Improve irrigation efficiency and adopt water conservation practices."
+            );
+        }
+
+
+        if (soilScore < 10) {
+            missing.push("Soil Management");
+
+            recommendations.push(
+                "Improve soil monitoring, compost use, mulching and erosion control."
+            );
+        }
+
+
+        if (documentScore < 10) {
+            missing.push("Documentation");
+
+            recommendations.push(
+                "Organize land, crop, input, irrigation, soil and farm activity records."
+            );
+        }
+
+
+        if (recommendations.length === 0) {
+
+            recommendations.push(
+                "Continue maintaining your current sustainable farming practices and records."
+            );
+
+        }
+
+
+        /* --------------------------------
+           RESULT OBJECT
+        -------------------------------- */
+
+        const result = {
+
+            score: totalScore,
+
+            level: level,
+
+            landArea:
+                farmData.landArea || "Not provided",
+
+            mainCrop:
+                farmData.mainCrop || "Not provided",
+
+            irrigation:
+                farmData.irrigation?.method ||
+                irrigation ||
+                "Not provided",
+
+            breakdown: {
+
+                land: landScore,
+
+                crop: cropScore,
+
+                practices: practiceScore,
+
+                inputs: inputScore,
+
+                irrigation: irrigationScore,
+
+                soil: soilScore,
+
+                documents: documentScore
+
+            },
+
+            missing: missing,
+
+            recommendations: recommendations,
+
+            createdAt: new Date().toISOString()
+
+        };
+
+
+        /* SAVE */
+
+        localStorage.setItem(
+            "carbonReadyAssessment",
+            JSON.stringify(result)
+        );
+
+
+        /* REDIRECT */
+
+        window.location.href = "result.html";
+
+    });
+
+
+    /* --------------------------------
+       LOGOUT
+    -------------------------------- */
+
+    function logout() {
+
+        localStorage.removeItem("carbonReadyToken");
+        localStorage.removeItem("carbonReadyUser");
+        localStorage.removeItem("carbonReadyAssessment");
+
+        window.location.href = "index.html";
+
+    }
+
+
+    updateProgress();
+
+</script>
+
+</body>
+</html>

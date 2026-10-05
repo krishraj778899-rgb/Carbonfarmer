@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Farm - CarbonReady</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================
+           CARBONREADY - MY FARM
+        ========================================= */
+
+        .farm-page {
+            min-height: 100vh;
+            background: #f6f9f7;
+        }
+
+        /* NAVBAR */
+
+        .farm-nav {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5ebe7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .farm-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #183024;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .farm-logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #e9f8ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .farm-logo span {
+            color: #229653;
+        }
+
+        .farm-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-dashboard {
+            color: #536159;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .back-dashboard:hover {
+            color: #198c49;
+        }
+
+        /* MAIN */
+
+        .farm-main {
+            width: 90%;
+            max-width: 1050px;
+            margin: auto;
+            padding: 42px 0 70px;
+        }
+
+        .farm-heading {
+            margin-bottom: 28px;
+        }
+
+        .farm-heading h1 {
+            margin: 0 0 8px;
+            color: #17221c;
+            font-size: 32px;
+            letter-spacing: -0.7px;
+        }
+
+        .farm-heading p {
+            margin: 0;
+            color: #718078;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FORM */
+
+        .farm-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .farm-section {
+            background: #ffffff;
+            border: 1px solid #e2eae5;
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 23px;
+        }
+
+        .section-icon {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #eaf8ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .section-header h2 {
+            margin: 0 0 5px;
+            font-size: 18px;
+            color: #24332b;
+        }
+
+        .section-header p {
+            margin: 0;
+            color: #7b8780;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* GRID */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-grid.three {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #34423a;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #d94848;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #dce5df;
+            border-radius: 10px;
+            background: #fbfdfc;
+            color: #26332c;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 46px;
+            padding: 0 13px;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            padding: 12px 13px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #28a65a;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 166, 90, 0.08);
+        }
+
+        .help-text {
+            color: #929d97;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        /* CHECKBOXES */
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 11px;
+        }
+
+        .check-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 13px;
+            background: #f8faf9;
+            border: 1px solid #e5ebe7;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .check-option:hover {
+            border-color: #b9ddc5;
+            background: #f3faf5;
+        }
+
+        .check-option input {
+            width: 16px;
+            height: 16px;
+            accent-color: #229653;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .check-option span {
+            color: #435048;
+            font-size: 12px;
+        }
+
+        /* RADIO */
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 11px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px;
+            border: 1px solid #e5ebe7;
+            background: #f8faf9;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            accent-color: #229653;
+        }
+
+        .radio-option span {
+            font-size: 12px;
+            color: #435048;
+        }
+
+        /* SAVE AREA */
+
+        .save-area {
+            background: #ffffff;
+            border: 1px solid #e2eae5;
+            border-radius: 18px;
+            padding: 20px 23px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .save-info strong {
+            display: block;
+            color: #26352d;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .save-info span {
+            color: #839089;
+            font-size: 11px;
+        }
+
+        .save-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cancel-btn,
+        .save-btn {
+            height: 45px;
+            padding: 0 20px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .cancel-btn {
+            border: 1px solid #dce5df;
+            background: #ffffff;
+            color: #56635b;
+        }
+
+        .cancel-btn:hover {
+            background: #f5f8f6;
+        }
+
+        .save-btn {
+            border: none;
+            color: #ffffff;
+            background: linear-gradient(135deg, #198c49, #2ebc67);
+            box-shadow: 0 8px 20px rgba(34, 157, 82, 0.18);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .save-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* MESSAGE */
+
+        .form-message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #eaf8ef;
+            border: 1px solid #bde6ca;
+            color: #17733c;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fff0f0;
+            border: 1px solid #f2c3c3;
+            color: #b42318;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .form-grid.three {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .radio-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .farm-nav {
+                padding: 0 20px;
+            }
+
+            .back-dashboard {
+                font-size: 11px;
+            }
+
+            .farm-main {
+                width: 92%;
+                padding-top: 30px;
+            }
+
+            .farm-heading h1 {
+                font-size: 27px;
+            }
+
+            .farm-section {
+                padding: 21px;
+                border-radius: 16px;
+            }
+
+            .form-grid,
+            .form-grid.three,
+            .checkbox-grid,
+            .radio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .save-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .save-buttons {
+                width: 100%;
+            }
+
+            .cancel-btn,
+            .save-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="farm-page">
+
+    <!-- NAVBAR -->
+
+    <nav class="farm-nav">
+
+        <a href="dashboard.html" class="farm-logo">
+
+            <div class="farm-logo-icon">
+                🌱
+            </div>
+
+            Carbon<span>Ready</span>
+
+        </a>
+
+        <div class="farm-nav-actions">
+
+            <a
+                href="dashboard.html"
+                class="back-dashboard"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="farm-main">
+
+        <div class="farm-heading">
+
+            <h1>
+                My Farm Information
+            </h1>
+
+            <p>
+                Add accurate information about your farm, crops and
+                sustainable practices to improve your readiness assessment.
+            </p>
+
+        </div>
+
+
+        <form
+            id="farmForm"
+            class="farm-form"
+        >
+
+            <!-- ==================================
+                 1. LAND DETAILS
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        🌾
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Land Details
+                        </h2>
+
+                        <p>
+                            Tell us about the land used for your farming activities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="farmName">
+                            Farm Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="farmName"
+                            placeholder="e.g. Green Valley Farm"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="landArea">
+                            Total Land Area (acres)
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="landArea"
+                            min="0"
+                            step="0.01"
+                            placeholder="e.g. 5"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="landType">
+                            Land Type
+                            <span class="required">*</span>
+                        </label>
+
+                        <select id="landType" required>
+
+                            <option value="">
+                                Select land type
+                            </option>
+
+                            <option value="Owned">
+                                Owned
+                            </option>
+
+                            <option value="Leased">
+                                Leased
+                            </option>
+
+                            <option value="Shared">
+                                Shared
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="soilType">
+                            Soil Type
+                        </label>
+
+                        <select id="soilType">
+
+                            <option value="">
+                                Select soil type
+                            </option>
+
+                            <option>Alluvial</option>
+                            <option>Black Soil</option>
+                            <option>Red Soil</option>
+                            <option>Loamy Soil</option>
+                            <option>Sandy Soil</option>
+                            <option>Clay Soil</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="village">
+                            Village / Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="village"
+                            placeholder="Village or local area"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="district">
+                            District
+                        </label>
+
+                        <input
+                            type="text"
+                            id="district"
+                            placeholder="District"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 2. CROP HISTORY
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        🌱
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Crop History
+                        </h2>
+
+                        <p>
+                            Provide information about your current and previous crops.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="mainCrop">
+                            Main / Current Crop
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="mainCrop"
+                            placeholder="e.g. Rice, Wheat, Maize"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="previousCrop">
+                            Previous Crop
+                        </label>
+
+                        <input
+                            type="text"
+                            id="previousCrop"
+                            placeholder="Crop grown previously"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cropYears">
+                            Years of Farming
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cropYears"
+                            min="0"
+                            placeholder="e.g. 10"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cropRotation">
+                            Crop Rotation
+                        </label>
+
+                        <select id="cropRotation">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Regular">
+                                Yes, regularly
+                            </option>
+
+                            <option value="Sometimes">
+                                Sometimes
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 3. FARMING PRACTICES
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        🚜
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Sustainable Farming Practices
+                        </h2>
+
+                        <p>
+                            Select practices currently followed on your farm.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkbox-grid">
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Crop rotation"
+                        >
+
+                        <span>
+                            Crop rotation
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Cover cropping"
+                        >
+
+                        <span>
+                            Cover cropping
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Organic manure"
+                        >
+
+                        <span>
+                            Organic manure / compost
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Reduced tillage"
+                        >
+
+                        <span>
+                            Reduced / minimum tillage
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Agroforestry"
+                        >
+
+                        <span>
+                            Agroforestry / trees
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Residue management"
+                        >
+
+                        <span>
+                            Crop residue management
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="No burning"
+                        >
+
+                        <span>
+                            Avoid crop-residue burning
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="practice"
+                            value="Integrated pest management"
+                        >
+
+                        <span>
+                            Integrated pest management
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 4. INPUT USAGE
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        🧪
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Input Usage
+                        </h2>
+
+                        <p>
+                            Tell us about fertilizer and other agricultural inputs.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="fertilizer">
+                            Fertilizer Usage
+                        </label>
+
+                        <select id="fertilizer">
+
+                            <option value="">
+                                Select usage level
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Moderate">
+                                Moderate
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Unknown">
+                                Not sure
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="organicInput">
+                            Organic Input Usage
+                        </label>
+
+                        <select id="organicInput">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Regular">
+                                Regularly
+                            </option>
+
+                            <option value="Sometimes">
+                                Sometimes
+                            </option>
+
+                            <option value="Never">
+                                Never
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pesticide">
+                            Chemical Pesticide Usage
+                        </label>
+
+                        <select id="pesticide">
+
+                            <option value="">
+                                Select usage level
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Moderate">
+                                Moderate
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="fertilizerType">
+                            Main Fertilizer Type
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fertilizerType"
+                            placeholder="e.g. Urea, DAP, Compost"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 5. IRRIGATION
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        💧
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Irrigation & Water Management
+                        </h2>
+
+                        <p>
+                            Provide information about your farm's water source and irrigation method.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="irrigation">
+                            Irrigation Method
+                            <span class="required">*</span>
+                        </label>
+
+                        <select id="irrigation" required>
+
+                            <option value="">
+                                Select method
+                            </option>
+
+                            <option value="Drip">
+                                Drip irrigation
+                            </option>
+
+                            <option value="Sprinkler">
+                                Sprinkler
+                            </option>
+
+                            <option value="Flood">
+                                Flood irrigation
+                            </option>
+
+                            <option value="Rainfed">
+                                Rainfed
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="waterSource">
+                            Main Water Source
+                        </label>
+
+                        <select id="waterSource">
+
+                            <option value="">
+                                Select source
+                            </option>
+
+                            <option value="Rainwater">
+                                Rainwater
+                            </option>
+
+                            <option value="Borewell">
+                                Borewell
+                            </option>
+
+                            <option value="Canal">
+                                Canal
+                            </option>
+
+                            <option value="River">
+                                River
+                            </option>
+
+                            <option value="Pond">
+                                Pond
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Water Conservation Practices
+                        </label>
+
+                        <div class="checkbox-grid">
+
+                            <label class="check-option">
+
+                                <input
+                                    type="checkbox"
+                                    name="waterPractice"
+                                    value="Rainwater harvesting"
+                                >
+
+                                <span>
+                                    Rainwater harvesting
+                                </span>
+
+                            </label>
+
+
+                            <label class="check-option">
+
+                                <input
+                                    type="checkbox"
+                                    name="waterPractice"
+                                    value="Efficient irrigation"
+                                >
+
+                                <span>
+                                    Efficient irrigation scheduling
+                                </span>
+
+                            </label>
+
+
+                            <label class="check-option">
+
+                                <input
+                                    type="checkbox"
+                                    name="waterPractice"
+                                    value="Mulching"
+                                >
+
+                                <span>
+                                    Mulching for water conservation
+                                </span>
+
+                            </label>
+
+
+                            <label class="check-option">
+
+                                <input
+                                    type="checkbox"
+                                    name="waterPractice"
+                                    value="Water monitoring"
+                                >
+
+                                <span>
+                                    Water usage monitoring
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 6. SOIL MANAGEMENT
+            =================================== -->
+
+            <section class="farm-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+                        🌍
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Soil Management
+                        </h2>
+
+                        <p>
+                            Select the soil-management practices used on your farm.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkbox-grid">
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Soil testing"
+                        >
+
+                        <span>
+                            Regular soil testing
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Compost"
+                        >
+
+                        <span>
+                            Compost / organic matter
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Mulching"
+                        >
+
+                        <span>
+                            Soil mulching
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Reduced tillage"
+                        >
+
+                        <span>
+                            Reduced tillage
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Cover crops"
+                        >
+
+                        <span>
+                            Cover crops
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            name="soilPractice"
+                            value="Erosion control"
+                        >
+
+                        <span>
+                            Soil erosion control
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="formMessage"
+                class="form-message"
+            ></div>
+
+
+            <!-- SAVE -->
+
+            <div class="save-area">
+
+                <div class="save-info">
+
+                    <strong>
+                        Keep your farm information updated
+                    </strong>
+
+                    <span>
+                        Accurate information helps make your readiness assessment more useful.
+                    </span>
+
+                </div>
+
+
+                <div class="save-buttons">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="window.location.href='dashboard.html'"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                        id="saveBtn"
+                    >
+                        Save Farm Information
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* =========================================
+       FARM FORM
+    ========================================= */
+
+    const farmForm =
+        document.getElementById("farmForm");
+
+    const formMessage =
+        document.getElementById("formMessage");
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
+
+    farmForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const farmName =
+                document.getElementById("farmName")
+                    .value.trim();
+
+            const landArea =
+                document.getElementById("landArea")
+                    .value;
+
+            const landType =
+                document.getElementById("landType")
+                    .value;
+
+            const soilType =
+                document.getElementById("soilType")
+                    .value;
+
+            const village =
+                document.getElementById("village")
+                    .value.trim();
+
+            const district =
+                document.getElementById("district")
+                    .value.trim();
+
+            const mainCrop =
+                document.getElementById("mainCrop")
+                    .value.trim();
+
+            const previousCrop =
+                document.getElementById("previousCrop")
+                    .value.trim();
+
+            const cropYears =
+                document.getElementById("cropYears")
+                    .value;
+
+            const cropRotation =
+                document.getElementById("cropRotation")
+                    .value;
+
+            const fertilizer =
+                document.getElementById("fertilizer")
+                    .value;
+
+            const organicInput =
+                document.getElementById("organicInput")
+                    .value;
+
+            const pesticide =
+                document.getElementById("pesticide")
+                    .value;
+
+            const fertilizerType =
+                document.getElementById("fertilizerType")
+                    .value.trim();
+
+            const irrigation =
+                document.getElementById("irrigation")
+                    .value;
+
+            const waterSource =
+                document.getElementById("waterSource")
+                    .value;
+
+
+            /* VALIDATION */
+
+            if (
+                !landArea ||
+                !landType ||
+                !mainCrop ||
+                !irrigation
+            ) {
+
+                showMessage(
+                    "Please fill all required fields marked with *.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* COLLECT CHECKBOXES */
+
+            const practices =
+                Array.from(
+                    document.querySelectorAll(
+                        'input[name="practice"]:checked'
+                    )
+                ).map(
+                    checkbox => checkbox.value
+                );
+
+
+            const waterPractices =
+                Array.from(
+                    document.querySelectorAll(
+                        'input[name="waterPractice"]:checked'
+                    )
+                ).map(
+                    checkbox => checkbox.value
+                );
+
+
+            const soilPractices =
+                Array.from(
+                    document.querySelectorAll(
+                        'input[name="soilPractice"]:checked'
+                    )
+                ).map(
+                    checkbox => checkbox.value
+                );
+
+
+            /* FARM DATA */
+
+            const farmData = {
+
+                farmName,
+
+                landArea,
+
+                landType,
+
+                soilType,
+
+                village,
+
+                district,
+
+                mainCrop,
+
+                previousCrop,
+
+                cropYears,
+
+                cropRotation,
+
+                farmingPractices: practices,
+
+                inputUsage: {
+
+                    fertilizer,
+
+                    organicInput,
+
+                    pesticide,
+
+                    fertilizerType
+
+                },
+
+                irrigation: {
+
+                    method: irrigation,
+
+                    waterSource,
+
+                    waterPractices
+
+                },
+
+                soilManagement: soilPractices
+
+            };
+
+
+            saveBtn.disabled = true;
+
+            saveBtn.textContent =
+                "Saving...";
+
+
+            /* =====================================
+               BACKEND API
+            ====================================== */
+
+            try {
+
+                const token =
+                    localStorage.getItem(
+                        "carbonReadyToken"
+                    );
+
+
+                const response =
+                    await fetch(
+                        "/api/farm",
+                        {
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                ...(token
+                                    ? {
+                                        "Authorization":
+                                            `Bearer ${token}`
+                                    }
+                                    : {})
+
+                            },
+
+                            body:
+                                JSON.stringify(farmData)
+
+                        }
+                    );
+
+
+                /*
+                 * Backend connect hone se pehle
+                 * demo ke liye localStorage fallback.
+                 */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Backend not connected yet."
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                localStorage.setItem(
+                    "carbonReadyFarm",
+                    JSON.stringify(farmData)
+                );
+
+
+                showMessage(
+                    data.message ||
+                    "Farm information saved successfully.",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    1000
+                );
+
+
+            } catch (error) {
+
+                console.log(
+                    "Backend response:",
+                    error.message
+                );
+
+
+                /*
+                 * Temporary frontend fallback.
+                 * Backend ready hone par automatically
+                 * API data use hoga.
+                 */
+
+                localStorage.setItem(
+                    "carbonReadyFarm",
+                    JSON.stringify(farmData)
+                );
+
+
+                showMessage(
+                    "Farm information saved locally. It will sync with the database when the backend is connected.",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    1200
+                );
+
+            } finally {
+
+                saveBtn.disabled = false;
+
+                saveBtn.textContent =
+                    "Save Farm Information";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       MESSAGE
+    ========================================= */
+
+    function showMessage(message, type) {
+
+        formMessage.textContent =
+            message;
+
+        formMessage.className =
+            "form-message " + type;
+
+    }
+
+
+    /* =========================================
+       LOAD SAVED FARM DATA
+    ========================================= */
+
+    const savedFarm =
+        localStorage.getItem(
+            "carbonReadyFarm"
+        );
+
+
+    if (savedFarm) {
+
+        try {
+
+            const data =
+                JSON.parse(savedFarm);
+
+
+            document.getElementById(
+                "farmName"
+            ).value =
+                data.farmName || "";
+
+
+            document.getElementById(
+                "landArea"
+            ).value =
+                data.landArea || "";
+
+
+            document.getElementById(
+                "landType"
+            ).value =
+                data.landType || "";
+
+
+            document.getElementById(
+                "soilType"
+            ).value =
+                data.soilType || "";
+
+
+            document.getElementById(
+                "village"
+            ).value =
+                data.village || "";
+
+
+            document.getElementById(
+                "district"
+            ).value =
+                data.district || "";
+
+
+            document.getElementById(
+                "mainCrop"
+            ).value =
+                data.mainCrop || "";
+
+
+            document.getElementById(
+                "previousCrop"
+            ).value =
+                data.previousCrop || "";
+
+
+            document.getElementById(
+                "cropYears"
+            ).value =
+                data.cropYears || "";
+
+
+            document.getElementById(
+                "cropRotation"
+            ).value =
+                data.cropRotation || "";
+
+
+            document.getElementById(
+                "fertilizer"
+            ).value =
+                data.inputUsage?.fertilizer || "";
+
+
+            document.getElementById(
+                "organicInput"
+            ).value =
+                data.inputUsage?.organicInput || "";
+
+
+            document.getElementById(
+                "pesticide"
+            ).value =
+                data.inputUsage?.pesticide || "";
+
+
+            document.getElementById(
+                "fertilizerType"
+            ).value =
+                data.inputUsage?.fertilizerType || "";
+
+
+            document.getElementById(
+                "irrigation"
+            ).value =
+                data.irrigation?.method || "";
+
+
+            document.getElementById(
+                "waterSource"
+            ).value =
+                data.irrigation?.waterSource || "";
+
+
+            /* Restore checkboxes */
+
+            const allCheckboxes =
+                document.querySelectorAll(
+                    "input[type='checkbox']"
+                );
+
+
+            allCheckboxes.forEach(
+                checkbox => {
+
+                    let values = [];
+
+                    if (
+                        checkbox.name ===
+                        "practice"
+                    ) {
+
+                        values =
+                            data.farmingPractices || [];
+
+                    }
+
+                    if (
+                        checkbox.name ===
+                        "waterPractice"
+                    ) {
+
+                        values =
+                            data.irrigation
+                                ?.waterPractices || [];
+
+                    }
+
+                    if (
+                        checkbox.name ===
+                        "soilPractice"
+                    ) {
+
+                        values =
+                            data.soilManagement || [];
+
+                    }
+
+                    checkbox.checked =
+                        values.includes(
+                            checkbox.value
+                        );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Could not load saved farm data.",
+                error
+            );
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
