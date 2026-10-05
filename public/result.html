@@ -4,434 +4,745 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Assessment Result - CarbonReady</title>
+    <title>Carbon Credit Score - CarbonReady</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f5;
+            color: #183322;
+        }
+
+        .navbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e2e8e3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #17472a;
+            font-size: 21px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #1d7b42, #4ab96b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .nav-link,
+        .logout-btn {
+            text-decoration: none;
+            border: none;
+            background: #edf6ef;
+            color: #1c6d3b;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 45px auto 70px;
+            padding: 0 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #68766d;
+        }
+
+        /* SCORE */
+
+        .score-card {
+            background: linear-gradient(135deg, #103a20, #207542);
+            color: white;
+            border-radius: 22px;
+            padding: 45px 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 18px 40px rgba(24, 91, 48, .18);
+        }
+
+        .score-card h2 {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #b9eac6;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 76px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .out-of {
+            color: #cdebd5;
+            margin-top: 8px;
+        }
+
+        .level {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 22px;
+            border-radius: 30px;
+            background: rgba(255,255,255,.15);
+            font-weight: 800;
+        }
+
+        .message {
+            margin-top: 18px;
+            color: #e0f2e4;
+            font-size: 14px;
+        }
+
+        /* FARM */
+
+        .card {
+            background: white;
+            border: 1px solid #e1e8e2;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+        }
+
+        .farm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .farm-item {
+            background: #f7faf8;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .farm-item span {
+            display: block;
+            color: #78847c;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .farm-item strong {
+            font-size: 15px;
+        }
+
+        /* BREAKDOWN */
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .breakdown-item {
+            background: #f7faf8;
+            padding: 17px;
+            border-radius: 12px;
+            border: 1px solid #e5ebe6;
+        }
+
+        .breakdown-item span {
+            display: block;
+            color: #6f7c73;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .breakdown-item strong {
+            color: #207542;
+            font-size: 22px;
+        }
+
+        /* RECOMMENDATIONS */
+
+        .recommendation {
+            display: flex;
+            gap: 12px;
+            padding: 13px 15px;
+            background: #f4faf5;
+            border: 1px solid #dceade;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            color: #365340;
+        }
+
+        .recommendation:last-child {
+            margin-bottom: 0;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 13px 22px;
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background: #207542;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #dce5de;
+            color: #245936;
+        }
+
+        .disclaimer {
+            text-align: center;
+            margin-top: 25px;
+            color: #7a847d;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .farm-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .breakdown-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .heading h1 {
+                font-size: 28px;
+            }
+
+            .score {
+                font-size: 60px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .farm-grid,
+            .breakdown-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-link {
+                display: none;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <header class="navbar">
+<nav class="navbar">
 
-        <div class="logo">
-            🌱 CarbonReady
+    <a href="dashboard.html" class="logo">
+        <span class="logo-icon">🌱</span>
+        CarbonReady
+    </a>
+
+    <div class="nav-right">
+
+        <a href="dashboard.html" class="nav-link">
+            Dashboard
+        </a>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+    <div class="heading">
+
+        <h1>
+            Your Carbon Credit Assessment
+        </h1>
+
+        <p>
+            Here is your current carbon-credit readiness assessment.
+        </p>
+
+    </div>
+
+
+    <!-- SCORE -->
+
+    <section class="score-card">
+
+        <h2>
+            🌍 Carbon Credit Score
+        </h2>
+
+        <div
+            class="score"
+            id="score">
+            0
         </div>
 
-        <nav>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="assessment.html">Assessment</a>
-            <a href="index.html" id="logoutBtn">Logout</a>
-        </nav>
+        <div class="out-of">
+            out of 100
+        </div>
 
-    </header>
+        <div
+            class="level"
+            id="level">
+            Not Ready Yet
+        </div>
 
+        <div
+            class="message"
+            id="message">
+            Complete your assessment to understand your readiness.
+        </div>
 
-    <main class="result-container">
-
-        <!-- Header -->
-        <section class="result-header">
-
-            <span class="dashboard-label">
-                ASSESSMENT COMPLETE
-            </span>
-
-            <h1>
-                Your Carbon Readiness Result 🌱
-            </h1>
-
-            <p>
-                Here's an indicative assessment of your farm's
-                readiness for carbon-credit programs.
-            </p>
-
-        </section>
+    </section>
 
 
-        <!-- Score Card -->
-        <section class="result-score-card">
+    <!-- FARM SUMMARY -->
 
-            <div class="result-circle">
+    <section class="card">
 
-                <div id="score">
-                    0
-                </div>
+        <h2>
+            🌾 Farm Summary
+        </h2>
 
-                <span>/ 100</span>
+        <div class="farm-grid">
 
-            </div>
+            <div class="farm-item">
 
-
-            <div class="result-info">
-
-                <span class="dashboard-label">
-                    READINESS LEVEL
+                <span>
+                    Farm Name
                 </span>
 
-                <h2 id="level">
-                    Loading...
-                </h2>
-
-                <p id="resultDescription">
-                    Calculating your result...
-                </p>
+                <strong id="farmName">
+                    —
+                </strong>
 
             </div>
 
-        </section>
 
+            <div class="farm-item">
 
-        <!-- Score Breakdown -->
-        <section class="result-section">
-
-            <div class="section-title">
-
-                <span class="dashboard-label">
-                    YOUR ASSESSMENT
+                <span>
+                    Land Area
                 </span>
 
-                <h2>
-                    Score Breakdown
-                </h2>
+                <strong id="landArea">
+                    —
+                </strong>
 
             </div>
 
 
-            <div class="breakdown-grid">
+            <div class="farm-item">
 
-                <div class="breakdown-card">
-                    <span>Land Information</span>
-                    <strong>15 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Crop History</span>
-                    <strong>15 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Sustainable Practices</span>
-                    <strong>20 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Input Usage</span>
-                    <strong>10 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Irrigation</span>
-                    <strong>10 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Soil Management</span>
-                    <strong>15 Points</strong>
-                </div>
-
-                <div class="breakdown-card">
-                    <span>Documentation</span>
-                    <strong>15 Points</strong>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Farm Summary -->
-        <section class="result-section">
-
-            <div class="section-title">
-
-                <span class="dashboard-label">
-                    FARM SUMMARY
+                <span>
+                    Main Crop
                 </span>
 
-                <h2>
-                    Your Submitted Information
-                </h2>
+                <strong id="mainCrop">
+                    —
+                </strong>
 
             </div>
 
 
-            <div class="summary-grid">
+            <div class="farm-item">
 
-                <div class="summary-box">
-                    <span>Farm Area</span>
-                    <strong id="farmArea">-</strong>
-                </div>
-
-                <div class="summary-box">
-                    <span>Main Crop</span>
-                    <strong id="mainCrop">-</strong>
-                </div>
-
-                <div class="summary-box">
-                    <span>Irrigation Method</span>
-                    <strong id="irrigation">-</strong>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Missing Information -->
-        <section class="result-section">
-
-            <div class="section-title">
-
-                <span class="dashboard-label">
-                    IMPROVEMENT AREAS
+                <span>
+                    Irrigation
                 </span>
 
-                <h2>
-                    What You Can Improve
-                </h2>
+                <strong id="irrigation">
+                    —
+                </strong>
 
             </div>
-
-
-            <div class="recommendation-grid">
-
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        📄
-                    </div>
-
-                    <h3>
-                        Maintain Farm Records
-                    </h3>
-
-                    <p>
-                        Keep proper records of crops, inputs,
-                        irrigation and farming activities.
-                    </p>
-                </div>
-
-
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        🌱
-                    </div>
-
-                    <h3>
-                        Improve Soil Health
-                    </h3>
-
-                    <p>
-                        Consider soil testing, organic matter,
-                        compost and cover crops.
-                    </p>
-                </div>
-
-
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        💧
-                    </div>
-
-                    <h3>
-                        Improve Water Management
-                    </h3>
-
-                    <p>
-                        Use efficient irrigation methods and
-                        maintain water-use records.
-                    </p>
-                </div>
-
-
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        🚜
-                    </div>
-
-                    <h3>
-                        Adopt Sustainable Practices
-                    </h3>
-
-                    <p>
-                        Explore crop rotation, reduced tillage
-                        and responsible input management.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Actions -->
-        <section class="result-actions">
-
-            <a
-                href="assessment.html"
-                class="dashboard-btn">
-                Retake Assessment
-            </a>
-
-            <a
-                href="dashboard.html"
-                class="secondary-btn">
-                Back to Dashboard
-            </a>
-
-        </section>
-
-
-        <!-- Disclaimer -->
-        <div class="dashboard-disclaimer">
-
-            <strong>Important:</strong>
-
-            This readiness score is an indicative prototype
-            assessment. It is not a certification, verification,
-            or guarantee of carbon-credit eligibility.
 
         </div>
 
-    </main>
+    </section>
 
 
-    <script>
+    <!-- SCORE BREAKDOWN -->
 
-        // ==========================================
-        // Load Assessment Result
-        // ==========================================
+    <section class="card">
 
-        const savedResult =
-            localStorage.getItem("carbonReadyAssessment");
+        <h2>
+            📊 Score Breakdown
+        </h2>
+
+        <div class="breakdown-grid">
+
+            <div class="breakdown-item">
+                <span>Land</span>
+                <strong>15</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Crop History</span>
+                <strong>15</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Sustainable Practices</span>
+                <strong>20</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Input Usage</span>
+                <strong>10</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Irrigation</span>
+                <strong>10</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Soil Management</span>
+                <strong>15</strong>
+            </div>
+
+            <div class="breakdown-item">
+                <span>Documentation</span>
+                <strong>15</strong>
+            </div>
+
+        </div>
+
+    </section>
 
 
-        if (!savedResult) {
+    <!-- RECOMMENDATIONS -->
 
-            alert(
-                "No assessment result found. Please complete the assessment first."
-            );
+    <section class="card">
 
-            window.location.href = "assessment.html";
+        <h2>
+            💡 Recommended Actions
+        </h2>
+
+        <div id="recommendations">
+
+            <div class="recommendation">
+                🌱 Complete your assessment to receive recommendations.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+        <a
+            href="dashboard.html"
+            class="btn btn-primary">
+            ← Back to Dashboard
+        </a>
+
+        <a
+            href="assessment.html"
+            class="btn btn-secondary">
+            Retake Assessment
+        </a>
+
+    </div>
+
+
+    <div class="disclaimer">
+
+        CarbonReady provides an indicative readiness score only.
+        This score does not represent actual carbon-credit
+        eligibility, certification, or issuance.
+
+    </div>
+
+</main>
+
+
+<script>
+
+    /* ==============================
+       LOAD RESULT
+    ============================== */
+
+    const assessment =
+        JSON.parse(
+            localStorage.getItem(
+                "carbonReadyAssessment"
+            )
+        ) || null;
+
+
+    const farm =
+        JSON.parse(
+            localStorage.getItem(
+                "carbonReadyFarm"
+            )
+        ) || {};
+
+
+    /* ==============================
+       ELEMENTS
+    ============================== */
+
+    const scoreElement =
+        document.getElementById("score");
+
+    const levelElement =
+        document.getElementById("level");
+
+    const messageElement =
+        document.getElementById("message");
+
+    const farmNameElement =
+        document.getElementById("farmName");
+
+    const landAreaElement =
+        document.getElementById("landArea");
+
+    const mainCropElement =
+        document.getElementById("mainCrop");
+
+    const irrigationElement =
+        document.getElementById("irrigation");
+
+    const recommendationsElement =
+        document.getElementById("recommendations");
+
+
+    /* ==============================
+       DISPLAY SCORE
+    ============================== */
+
+    if (assessment) {
+
+        const score =
+            Number(assessment.score) || 0;
+
+        const level =
+            assessment.level ||
+            getLevel(score);
+
+
+        scoreElement.textContent =
+            score;
+
+        levelElement.textContent =
+            level;
+
+
+        if (score >= 80) {
+
+            messageElement.textContent =
+                "Your farm shows strong readiness for future carbon-credit programs.";
 
         }
+
+        else if (score >= 60) {
+
+            messageElement.textContent =
+                "Your farm has a good foundation, but some improvements are recommended.";
+
+        }
+
+        else if (score >= 40) {
+
+            messageElement.textContent =
+                "Your farm has started the journey, but several areas need improvement.";
+
+        }
+
         else {
 
-            try {
-
-                const result =
-                    JSON.parse(savedResult);
-
-
-                // Score
-                document.getElementById("score")
-                    .textContent = result.score || 0;
-
-
-                // Level
-                document.getElementById("level")
-                    .textContent =
-                    result.level || "Not Available";
-
-
-                // Farm Area
-                document.getElementById("farmArea")
-                    .textContent =
-                    result.landArea
-                        ? result.landArea + " acres"
-                        : "Not provided";
-
-
-                // Main Crop
-                document.getElementById("mainCrop")
-                    .textContent =
-                    result.mainCrop || "Not provided";
-
-
-                // Irrigation
-                document.getElementById("irrigation")
-                    .textContent =
-                    result.irrigation || "Not provided";
-
-
-                // Description
-                const description =
-                    document.getElementById(
-                        "resultDescription"
-                    );
-
-
-                const score =
-                    Number(result.score) || 0;
-
-
-                if (score >= 80) {
-
-                    description.textContent =
-                        "Your farm shows strong readiness. Continue maintaining sustainable practices and proper documentation.";
-
-                }
-                else if (score >= 60) {
-
-                    description.textContent =
-                        "Your farm has a good foundation. Improving a few areas can increase your readiness.";
-
-                }
-                else if (score >= 40) {
-
-                    description.textContent =
-                        "Your farm has some positive practices, but several areas need improvement.";
-
-                }
-                else {
-
-                    description.textContent =
-                        "Your farm is at an early stage of readiness. Start with documentation and sustainable farming practices.";
-
-                }
-
-            }
-            catch (error) {
-
-                console.error(
-                    "Unable to load assessment result.",
-                    error
-                );
-
-                window.location.href =
-                    "assessment.html";
-
-            }
+            messageElement.textContent =
+                "More sustainable practices and better documentation are recommended.";
 
         }
 
+    }
 
-        // ==========================================
-        // Logout
-        // ==========================================
 
-        document
-            .getElementById("logoutBtn")
-            .addEventListener(
-                "click",
-                function(event) {
+    /* ==============================
+       FARM DATA
+    ============================== */
 
-                    event.preventDefault();
+    farmNameElement.textContent =
+        farm.farmName ||
+        "Not provided";
 
-                    localStorage.removeItem(
-                        "carbonReadyToken"
+
+    landAreaElement.textContent =
+        farm.landArea
+            ? `${farm.landArea} acres`
+            : "Not provided";
+
+
+    mainCropElement.textContent =
+        farm.mainCrop ||
+        "Not provided";
+
+
+    irrigationElement.textContent =
+        assessment?.irrigation ||
+        farm.irrigation?.method ||
+        "Not provided";
+
+
+    /* ==============================
+       RECOMMENDATIONS
+    ============================== */
+
+    if (
+        assessment &&
+        Array.isArray(
+            assessment.recommendations
+        ) &&
+        assessment.recommendations.length > 0
+    ) {
+
+        recommendationsElement.innerHTML = "";
+
+        assessment.recommendations.forEach(
+            recommendation => {
+
+                const div =
+                    document.createElement(
+                        "div"
                     );
 
-                    localStorage.removeItem(
-                        "carbonReadyUser"
-                    );
+                div.className =
+                    "recommendation";
 
-                    window.location.href =
-                        "index.html";
+                div.innerHTML =
+                    `🌱 ${recommendation}`;
 
-                }
-            );
+                recommendationsElement.appendChild(
+                    div
+                );
 
-    </script>
+            }
+        );
+
+    }
+
+
+    /* ==============================
+       LEVEL FUNCTION
+    ============================== */
+
+    function getLevel(score) {
+
+        if (score >= 80) {
+            return "Highly Ready";
+        }
+
+        if (score >= 60) {
+            return "Moderately Ready";
+        }
+
+        if (score >= 40) {
+            return "Needs Improvement";
+        }
+
+        return "Not Ready Yet";
+
+    }
+
+
+    /* ==============================
+       LOGOUT
+    ============================== */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "carbonReadyToken"
+        );
+
+        localStorage.removeItem(
+            "carbonReadyUser"
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+
+</script>
 
 </body>
 </html>
