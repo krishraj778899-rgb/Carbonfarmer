@@ -9,20 +9,15 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* =========================================
-           CARBONREADY DASHBOARD
-        ========================================= */
-
         .dashboard-page {
             min-height: 100vh;
             background: #f6f9f7;
         }
 
         /* NAVBAR */
-
         .dashboard-nav {
             height: 72px;
-            background: #ffffff;
+            background: #fff;
             border-bottom: 1px solid #e5ebe7;
             display: flex;
             align-items: center;
@@ -74,14 +69,13 @@
 
         .logout-btn {
             border: 1px solid #dce5df;
-            background: #ffffff;
+            background: #fff;
             color: #44534b;
             padding: 9px 16px;
             border-radius: 9px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s ease;
         }
 
         .logout-btn:hover {
@@ -91,7 +85,6 @@
         }
 
         /* MAIN */
-
         .dashboard-main {
             width: 90%;
             max-width: 1250px;
@@ -107,7 +100,6 @@
             margin: 0 0 8px;
             font-size: 32px;
             color: #17221c;
-            letter-spacing: -0.7px;
         }
 
         .dashboard-heading p {
@@ -116,8 +108,7 @@
             font-size: 14px;
         }
 
-        /* SCORE + FARM */
-
+        /* TOP GRID */
         .dashboard-top-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -125,17 +116,15 @@
             margin-bottom: 25px;
         }
 
-        /* SCORE CARD */
-
+        /* SCORE */
         .score-card {
-            background:
-                linear-gradient(135deg, #123d2a, #17633e);
+            background: linear-gradient(135deg, #123d2a, #17633e);
             border-radius: 22px;
             padding: 30px;
-            color: #ffffff;
+            color: #fff;
             position: relative;
             overflow: hidden;
-            min-height: 250px;
+            min-height: 270px;
         }
 
         .score-card::before {
@@ -147,17 +136,6 @@
             border-radius: 50%;
             right: -90px;
             top: -100px;
-        }
-
-        .score-card::after {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 50%;
-            left: -130px;
-            bottom: -120px;
         }
 
         .score-content {
@@ -232,19 +210,24 @@
         .score-btn {
             display: inline-block;
             margin-top: 18px;
-            padding: 10px 17px;
+            padding: 11px 18px;
             border-radius: 9px;
-            background: #ffffff;
+            background: #fff;
             color: #17633e;
             text-decoration: none;
             font-size: 12px;
-            font-weight: 750;
+            font-weight: 800;
+            transition: 0.2s;
         }
 
-        /* FARM PROFILE */
+        .score-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
 
+        /* FARM */
         .farm-profile-card {
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #e4ebe6;
             border-radius: 22px;
             padding: 27px;
@@ -294,8 +277,7 @@
             font-size: 13px;
         }
 
-        /* QUICK ACTIONS */
-
+        /* SECTION */
         .section-title {
             margin: 32px 0 16px;
         }
@@ -312,6 +294,7 @@
             color: #7a867f;
         }
 
+        /* ACTIONS */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -319,7 +302,7 @@
         }
 
         .action-card {
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #e4ebe6;
             border-radius: 17px;
             padding: 23px;
@@ -330,7 +313,7 @@
         .action-card:hover {
             transform: translateY(-4px);
             border-color: #b9ddc5;
-            box-shadow: 0 12px 30px rgba(25, 80, 45, 0.08);
+            box-shadow: 0 12px 30px rgba(25,80,45,0.08);
         }
 
         .action-icon {
@@ -359,10 +342,9 @@
         }
 
         /* PROGRESS */
-
         .progress-section {
             margin-top: 28px;
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #e4ebe6;
             border-radius: 20px;
             padding: 27px;
@@ -396,9 +378,10 @@
 
         .progress-fill {
             height: 100%;
-            width: 72%;
+            width: 0%;
             border-radius: 20px;
             background: linear-gradient(90deg, #218c4d, #55c97b);
+            transition: width 0.5s ease;
         }
 
         .progress-info {
@@ -410,7 +393,6 @@
         }
 
         /* RECOMMENDATIONS */
-
         .recommendation-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -418,7 +400,7 @@
         }
 
         .recommendation-card {
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #e4ebe6;
             border-radius: 17px;
             padding: 21px;
@@ -451,7 +433,6 @@
         }
 
         /* FOOTER */
-
         .dashboard-footer {
             text-align: center;
             padding: 25px;
@@ -461,9 +442,7 @@
         }
 
         /* RESPONSIVE */
-
         @media (max-width: 950px) {
-
             .dashboard-top-grid {
                 grid-template-columns: 1fr;
             }
@@ -474,7 +453,6 @@
         }
 
         @media (max-width: 650px) {
-
             .dashboard-nav {
                 padding: 0 20px;
             }
@@ -516,22 +494,13 @@
 
 <div class="dashboard-page">
 
-    <!-- =====================================
-         NAVBAR
-    ====================================== -->
-
+    <!-- NAVBAR -->
     <nav class="dashboard-nav">
 
         <a href="index.html" class="dashboard-logo">
-
-            <div class="dashboard-logo-icon">
-                🌱
-            </div>
-
+            <div class="dashboard-logo-icon">🌱</div>
             Carbon<span>Ready</span>
-
         </a>
-
 
         <div class="dashboard-nav-right">
 
@@ -539,10 +508,7 @@
                 Welcome, <strong id="userName">Farmer</strong>
             </div>
 
-            <button
-                class="logout-btn"
-                id="logoutBtn"
-            >
+            <button class="logout-btn" id="logoutBtn">
                 Logout
             </button>
 
@@ -551,19 +517,13 @@
     </nav>
 
 
-    <!-- =====================================
-         MAIN
-    ====================================== -->
-
+    <!-- MAIN -->
     <main class="dashboard-main">
 
         <!-- HEADER -->
-
         <div class="dashboard-heading">
 
-            <h1>
-                Farmer Dashboard
-            </h1>
+            <h1>Farmer Dashboard</h1>
 
             <p>
                 Manage your farm information and track your carbon readiness.
@@ -572,15 +532,10 @@
         </div>
 
 
-        <!-- =====================================
-             SCORE + FARM PROFILE
-        ====================================== -->
-
+        <!-- SCORE + FARM -->
         <div class="dashboard-top-grid">
 
-
             <!-- SCORE -->
-
             <div class="score-card">
 
                 <div class="score-content">
@@ -589,15 +544,11 @@
                         Your Carbon Readiness
                     </div>
 
-
                     <div class="score-main">
 
                         <div class="score-circle">
 
-                            <div
-                                class="score-number"
-                                id="scoreNumber"
-                            >
+                            <div class="score-number" id="scoreNumber">
                                 0
                             </div>
 
@@ -606,7 +557,6 @@
                             </div>
 
                         </div>
-
 
                         <div class="score-details">
 
@@ -619,11 +569,9 @@
                                 to understand your carbon readiness.
                             </p>
 
-                            <a
-                                href="assessment.html"
-                                class="score-btn"
-                            >
-                                Start Assessment →
+                            <!-- MAIN START BUTTON -->
+                            <a href="farm.html" class="score-btn">
+                                Start Assessment Process →
                             </a>
 
                         </div>
@@ -636,14 +584,11 @@
 
 
             <!-- FARM PROFILE -->
-
             <div class="farm-profile-card">
 
                 <div class="card-heading">
 
-                    <h2>
-                        My Farm
-                    </h2>
+                    <h2>My Farm</h2>
 
                     <a href="farm.html">
                         Edit Details
@@ -651,58 +596,26 @@
 
                 </div>
 
-
                 <div class="farm-info-grid">
 
                     <div class="farm-info-item">
-
-                        <span>
-                            Farm Name
-                        </span>
-
-                        <strong id="farmName">
-                            Not Added
-                        </strong>
-
+                        <span>Farm Name</span>
+                        <strong id="farmName">Not Added</strong>
                     </div>
 
-
                     <div class="farm-info-item">
-
-                        <span>
-                            Land Area
-                        </span>
-
-                        <strong id="landArea">
-                            Not Added
-                        </strong>
-
+                        <span>Land Area</span>
+                        <strong id="landArea">Not Added</strong>
                     </div>
 
-
                     <div class="farm-info-item">
-
-                        <span>
-                            Main Crop
-                        </span>
-
-                        <strong id="mainCrop">
-                            Not Added
-                        </strong>
-
+                        <span>Main Crop</span>
+                        <strong id="mainCrop">Not Added</strong>
                     </div>
 
-
                     <div class="farm-info-item">
-
-                        <span>
-                            Irrigation
-                        </span>
-
-                        <strong id="irrigation">
-                            Not Added
-                        </strong>
-
+                        <span>Irrigation</span>
+                        <strong id="irrigation">Not Added</strong>
                     </div>
 
                 </div>
@@ -712,15 +625,10 @@
         </div>
 
 
-        <!-- =====================================
-             QUICK ACTIONS
-        ====================================== -->
-
+        <!-- QUICK ACTIONS -->
         <div class="section-title">
 
-            <h2>
-                Quick Actions
-            </h2>
+            <h2>Quick Actions</h2>
 
             <p>
                 Complete your farm profile and assessment.
@@ -731,14 +639,30 @@
 
         <div class="action-grid">
 
-
-            <a
-                href="farm.html"
-                class="action-card"
-            >
+            <!-- START ASSESSMENT -->
+            <a href="farm.html" class="action-card">
 
                 <div class="action-icon">
                     🌾
+                </div>
+
+                <h3>
+                    Start Assessment
+                </h3>
+
+                <p>
+                    Enter your farm details and begin your
+                    carbon readiness assessment.
+                </p>
+
+            </a>
+
+
+            <!-- FARM -->
+            <a href="farm.html" class="action-card">
+
+                <div class="action-icon">
+                    🚜
                 </div>
 
                 <h3>
@@ -746,36 +670,15 @@
                 </h3>
 
                 <p>
-                    Add land, crop and farming information.
+                    Add and update your land, crop and
+                    farming information.
                 </p>
 
             </a>
 
 
-            <a
-                href="assessment.html"
-                class="action-card"
-            >
-
-                <div class="action-icon">
-                    📋
-                </div>
-
-                <h3>
-                    Assessment
-                </h3>
-
-                <p>
-                    Check your carbon readiness score.
-                </p>
-
-            </a>
-
-
-            <a
-                href="documents.html"
-                class="action-card"
-            >
+            <!-- DOCUMENTS -->
+            <a href="documents.html" class="action-card">
 
                 <div class="action-icon">
                     📄
@@ -792,10 +695,8 @@
             </a>
 
 
-            <a
-                href="result.html"
-                class="action-card"
-            >
+            <!-- RESULTS -->
+            <a href="result.html" class="action-card">
 
                 <div class="action-icon">
                     📊
@@ -806,7 +707,7 @@
                 </h3>
 
                 <p>
-                    View your latest assessment results.
+                    View your latest carbon readiness results.
                 </p>
 
             </a>
@@ -814,10 +715,7 @@
         </div>
 
 
-        <!-- =====================================
-             PROFILE COMPLETION
-        ====================================== -->
-
+        <!-- PROFILE COMPLETION -->
         <div class="progress-section">
 
             <div class="progress-header">
@@ -826,25 +724,20 @@
                     Profile Completion
                 </h2>
 
-                <span
-                    class="progress-percent"
-                    id="profilePercent"
-                >
-                    72%
+                <span class="progress-percent" id="profilePercent">
+                    0%
                 </span>
 
             </div>
-
 
             <div class="progress-bar">
 
                 <div
                     class="progress-fill"
-                    id="profileFill"
-                ></div>
+                    id="profileFill">
+                </div>
 
             </div>
-
 
             <div class="progress-info">
 
@@ -861,10 +754,7 @@
         </div>
 
 
-        <!-- =====================================
-             RECOMMENDATIONS
-        ====================================== -->
-
+        <!-- RECOMMENDATIONS -->
         <div class="section-title">
 
             <h2>
@@ -879,7 +769,6 @@
 
 
         <div class="recommendation-grid">
-
 
             <div class="recommendation-card">
 
@@ -973,10 +862,7 @@
     </main>
 
 
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
-
+    <!-- FOOTER -->
     <footer class="dashboard-footer">
 
         CarbonReady © 2026 · Farmer Carbon Credit Readiness Platform
@@ -990,7 +876,7 @@
 
     /* =====================================
        LOAD USER
-    ====================================== */
+    ===================================== */
 
     const savedUser =
         localStorage.getItem("carbonReadyUser");
@@ -999,10 +885,10 @@
 
         try {
 
-            const user =
-                JSON.parse(savedUser);
+            const user = JSON.parse(savedUser);
 
             const fullName =
+                user.name ||
                 [
                     user.firstName,
                     user.lastName
@@ -1011,11 +897,8 @@
                 .join(" ");
 
             if (fullName) {
-
-                document.getElementById(
-                    "userName"
-                ).textContent = fullName;
-
+                document.getElementById("userName").textContent =
+                    fullName;
             }
 
         } catch (error) {
@@ -1031,14 +914,93 @@
 
 
     /* =====================================
+       LOAD FARM DATA
+    ===================================== */
+
+    const savedFarm =
+        localStorage.getItem("carbonReadyFarm");
+
+    let farmData = null;
+
+    if (savedFarm) {
+
+        try {
+
+            farmData = JSON.parse(savedFarm);
+
+            document.getElementById("farmName").textContent =
+                farmData.farmName || "Not Added";
+
+            document.getElementById("landArea").textContent =
+                farmData.landArea
+                    ? farmData.landArea + " acres"
+                    : "Not Added";
+
+            document.getElementById("mainCrop").textContent =
+                farmData.mainCrop || "Not Added";
+
+            document.getElementById("irrigation").textContent =
+                farmData.irrigation?.method ||
+                farmData.irrigation ||
+                "Not Added";
+
+        } catch (error) {
+
+            console.error(
+                "Unable to load farm data.",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================
+       PROFILE COMPLETION
+    ===================================== */
+
+    let completion = 0;
+
+    if (farmData) {
+
+        const fields = [
+            farmData.farmName,
+            farmData.landArea,
+            farmData.landType,
+            farmData.soilType,
+            farmData.village,
+            farmData.district,
+            farmData.mainCrop,
+            farmData.previousCrop,
+            farmData.cropYears,
+            farmData.cropRotation,
+            farmData.farmingPractices
+        ];
+
+        const completedFields =
+            fields.filter(Boolean).length;
+
+        completion =
+            Math.round(
+                (completedFields / fields.length) * 100
+            );
+
+    }
+
+    document.getElementById("profilePercent").textContent =
+        completion + "%";
+
+    document.getElementById("profileFill").style.width =
+        completion + "%";
+
+
+    /* =====================================
        LOAD ASSESSMENT RESULT
-    ====================================== */
+    ===================================== */
 
     const savedAssessment =
-        localStorage.getItem(
-            "carbonReadyAssessment"
-        );
-
+        localStorage.getItem("carbonReadyAssessment");
 
     if (savedAssessment) {
 
@@ -1047,86 +1009,37 @@
             const result =
                 JSON.parse(savedAssessment);
 
-
             const score =
                 Number(result.score) || 0;
 
+            document.getElementById("scoreNumber").textContent =
+                score;
 
-            document.getElementById(
-                "scoreNumber"
-            ).textContent = score;
-
-
-            let level =
-                result.level ||
-                "Not Assessed";
-
-
-            document.getElementById(
-                "scoreLevel"
-            ).textContent = level;
+            document.getElementById("scoreLevel").textContent =
+                result.level || "Not Assessed";
 
 
             if (score >= 80) {
 
-                document.getElementById(
-                    "scoreDescription"
-                ).textContent =
+                document.getElementById("scoreDescription").textContent =
                     "Your farm shows strong readiness for carbon-credit program requirements.";
 
             } else if (score >= 60) {
 
-                document.getElementById(
-                    "scoreDescription"
-                ).textContent =
+                document.getElementById("scoreDescription").textContent =
                     "Your farm has a good foundation, with a few areas that can be improved.";
 
             } else if (score >= 40) {
 
-                document.getElementById(
-                    "scoreDescription"
-                ).textContent =
+                document.getElementById("scoreDescription").textContent =
                     "Your farm has started the journey, but several areas need improvement.";
 
             } else if (score > 0) {
 
-                document.getElementById(
-                    "scoreDescription"
-                ).textContent =
+                document.getElementById("scoreDescription").textContent =
                     "Complete more farm information and adopt recommended practices to improve readiness.";
 
             }
-
-
-            if (result.landArea) {
-
-                document.getElementById(
-                    "landArea"
-                ).textContent =
-                    result.landArea + " acres";
-
-            }
-
-
-            if (result.mainCrop) {
-
-                document.getElementById(
-                    "mainCrop"
-                ).textContent =
-                    result.mainCrop;
-
-            }
-
-
-            if (result.irrigation) {
-
-                document.getElementById(
-                    "irrigation"
-                ).textContent =
-                    result.irrigation;
-
-            }
-
 
         } catch (error) {
 
@@ -1142,32 +1055,20 @@
 
     /* =====================================
        LOGOUT
-    ====================================== */
+    ===================================== */
 
     document
         .getElementById("logoutBtn")
-        .addEventListener(
-            "click",
-            function () {
+        .addEventListener("click", function () {
 
-                localStorage.removeItem(
-                    "carbonReadyToken"
-                );
+            localStorage.removeItem("carbonReadyToken");
+            localStorage.removeItem("carbonReadyUser");
+            localStorage.removeItem("carbonReadyAssessment");
+            localStorage.removeItem("carbonReadyFarm");
 
-                localStorage.removeItem(
-                    "carbonReadyUser"
-                );
+            window.location.href = "index.html";
 
-                localStorage.removeItem(
-                    "carbonReadyAssessment"
-                );
-
-                window.location.href =
-                    "index.html";
-
-            }
-        );
-
+        });
 
 </script>
 
