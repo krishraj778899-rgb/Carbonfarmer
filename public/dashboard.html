@@ -277,6 +277,100 @@
             font-size: 13px;
         }
 
+        /* CARBON CREDIT */
+        .carbon-credit-section {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 18px;
+        }
+
+        .carbon-credit-info {
+            background: linear-gradient(135deg, #eaf8ef, #f7fcf8);
+            border: 1px solid #cfe8d7;
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .carbon-credit-icon {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+            border-radius: 15px;
+            background: #d9f2e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .carbon-credit-info h2 {
+            margin: 0 0 7px;
+            color: #174b2d;
+            font-size: 19px;
+        }
+
+        .carbon-credit-info p {
+            margin: 0 0 7px;
+            color: #53645a;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .carbon-credit-info span {
+            color: #6b8172;
+            font-size: 11px;
+        }
+
+        /* CARBON ESTIMATE */
+        .carbon-estimate-card {
+            background: linear-gradient(135deg, #123d2a, #17633e);
+            border-radius: 20px;
+            padding: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carbon-estimate-card::after {
+            content: "🌍";
+            position: absolute;
+            right: 18px;
+            top: 15px;
+            font-size: 45px;
+            opacity: 0.12;
+        }
+
+        .carbon-estimate-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.65);
+            font-weight: 700;
+        }
+
+        .carbon-estimate-value {
+            margin-top: 10px;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .carbon-estimate-unit {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+        }
+
+        .carbon-estimate-note {
+            margin-top: 14px;
+            font-size: 10px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.55);
+        }
+
         /* SECTION */
         .section-title {
             margin: 32px 0 16px;
@@ -443,7 +537,12 @@
 
         /* RESPONSIVE */
         @media (max-width: 950px) {
+
             .dashboard-top-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carbon-credit-section {
                 grid-template-columns: 1fr;
             }
 
@@ -453,6 +552,7 @@
         }
 
         @media (max-width: 650px) {
+
             .dashboard-nav {
                 padding: 0 20px;
             }
@@ -485,6 +585,10 @@
 
             .recommendation-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .carbon-credit-info {
+                align-items: flex-start;
             }
         }
     </style>
@@ -569,7 +673,6 @@
                                 to understand your carbon readiness.
                             </p>
 
-                            <!-- MAIN START BUTTON -->
                             <a href="farm.html" class="score-btn">
                                 Start Assessment Process →
                             </a>
@@ -618,6 +721,67 @@
                         <strong id="irrigation">Not Added</strong>
                     </div>
 
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARBON CREDIT SECTION -->
+        <div class="carbon-credit-section">
+
+            <!-- INFORMATION -->
+            <div class="carbon-credit-info">
+
+                <div class="carbon-credit-icon">
+                    🌍
+                </div>
+
+                <div>
+
+                    <h2>
+                        Carbon Credit Readiness
+                    </h2>
+
+                    <p>
+                        CarbonReady helps farmers understand how prepared
+                        their farming practices are for future carbon-credit
+                        programs.
+                    </p>
+
+                    <span>
+                        ⚡ Indicative assessment · Not actual carbon-credit certification
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ESTIMATE -->
+            <div class="carbon-estimate-card">
+
+                <div class="carbon-estimate-label">
+                    Estimated Carbon Credit Potential
+                </div>
+
+                <div class="carbon-estimate-value">
+
+                    <span id="carbonEstimate">
+                        0.00
+                    </span>
+
+                </div>
+
+                <div class="carbon-estimate-unit">
+                    tCO₂e / year
+                </div>
+
+                <div class="carbon-estimate-note">
+                    Indicative demo estimate based on land area
+                    and readiness score. Actual carbon credits
+                    require verification and certification.
                 </div>
 
             </div>
@@ -897,8 +1061,10 @@
                 .join(" ");
 
             if (fullName) {
+
                 document.getElementById("userName").textContent =
                     fullName;
+
             }
 
         } catch (error) {
@@ -1002,6 +1168,8 @@
     const savedAssessment =
         localStorage.getItem("carbonReadyAssessment");
 
+    let readinessScore = 0;
+
     if (savedAssessment) {
 
         try {
@@ -1011,6 +1179,8 @@
 
             const score =
                 Number(result.score) || 0;
+
+            readinessScore = score;
 
             document.getElementById("scoreNumber").textContent =
                 score;
@@ -1051,6 +1221,39 @@
         }
 
     }
+
+
+    /* =====================================
+       CARBON CREDIT ESTIMATE
+    ===================================== */
+
+    function calculateCarbonEstimate() {
+
+        const landArea =
+            Number(farmData?.landArea) || 0;
+
+        /*
+            DEMO ESTIMATION MODEL
+
+            Baseline:
+            0.5 tCO₂e per acre per year
+
+            Estimate:
+            Land Area × 0.5 × Readiness Score / 100
+        */
+
+        const baselinePerAcre = 0.5;
+
+        const estimatedCarbon =
+            landArea *
+            baselinePerAcre *
+            (readinessScore / 100);
+
+        document.getElementById("carbonEstimate").textContent =
+            estimatedCarbon.toFixed(2);
+    }
+
+    calculateCarbonEstimate();
 
 
     /* =====================================
