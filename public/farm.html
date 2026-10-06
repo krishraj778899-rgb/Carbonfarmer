@@ -1422,6 +1422,120 @@
 <script>
 
     /* =========================================
+       AUTO FARM READINESS ASSESSMENT
+       Uses the farm information entered by the farmer.
+    ========================================= */
+
+    function generateFarmAssessment(farmData) {
+
+        let score = 0;
+
+        // Land & farm profile: 20
+        if (farmData.landArea && Number(farmData.landArea) > 0) score += 7;
+        if (farmData.landType) score += 4;
+        if (farmData.soilType) score += 4;
+        if (farmData.village && farmData.district) score += 5;
+
+        // Crop history: 20
+        if (farmData.mainCrop) score += 6;
+        if (farmData.previousCrop) score += 4;
+        if (farmData.cropYears && Number(farmData.cropYears) > 0) score += 4;
+        if (farmData.cropRotation === "regular") score += 6;
+        else if (farmData.cropRotation === "sometimes") score += 3;
+
+        // Sustainable practices: 20
+        score += Math.min(
+            (farmData.farmingPractices || []).length * 4,
+            16
+        );
+        if ((farmData.farmingPractices || []).length >= 3) score += 4;
+
+        // Input management: 10
+        if (farmData.inputUsage?.fertilizer === "balanced") score += 4;
+        else if (farmData.inputUsage?.fertilizer) score += 2;
+
+        if (farmData.inputUsage?.organicInput === "regular") score += 4;
+        else if (farmData.inputUsage?.organicInput) score += 2;
+
+        if (farmData.inputUsage?.pesticide) score += 2;
+
+        // Water / irrigation: 10
+        const irrigation = farmData.irrigation?.method;
+        if (irrigation === "drip") score += 5;
+        else if (irrigation === "sprinkler") score += 4;
+        else if (irrigation === "rain") score += 3;
+        else if (irrigation === "flood") score += 1;
+        else if (irrigation) score += 2;
+
+        if ((farmData.irrigation?.waterPractices || []).length > 0) {
+            score += 5;
+        }
+
+        // Soil management: 10
+        score += Math.min(
+            (farmData.soilManagement || []).length * 2,
+            10
+        );
+
+        // Keep within 100
+        score = Math.min(Math.round(score), 100);
+
+        let level = "Not Ready Yet";
+        if (score >= 80) level = "Highly Ready";
+        else if (score >= 60) level = "Moderately Ready";
+        else if (score >= 40) level = "Needs Improvement";
+
+        const landArea = Number(farmData.landArea) || 0;
+
+        // Indicative demo estimate only; not actual issued carbon credits.
+        const carbonCreated =
+            landArea * 0.5 * (score / 100);
+
+        const recommendations = [];
+
+        if (!farmData.soilType)
+            recommendations.push("Add complete soil information.");
+        if (!farmData.previousCrop || !farmData.cropYears)
+            recommendations.push("Complete crop history records.");
+        if ((farmData.farmingPractices || []).length < 3)
+            recommendations.push("Adopt more sustainable farming practices.");
+        if (farmData.inputUsage?.organicInput !== "regular")
+            recommendations.push("Increase regular organic input usage.");
+        if ((farmData.irrigation?.waterPractices || []).length === 0)
+            recommendations.push("Add water-saving practices.");
+        if ((farmData.soilManagement || []).length < 3)
+            recommendations.push("Improve soil management practices.");
+
+        if (recommendations.length === 0) {
+            recommendations.push(
+                "Continue maintaining your sustainable farming practices."
+            );
+        }
+
+        return {
+            score,
+            level,
+            landArea,
+            mainCrop: farmData.mainCrop || "Not provided",
+            irrigation: farmData.irrigation?.method || "Not provided",
+            carbonCreated: Number(carbonCreated.toFixed(2)),
+            breakdown: {
+                land: 20,
+                crop: 20,
+                practices: 20,
+                inputs: 10,
+                irrigation: 10,
+                soil: 10,
+                documents: 10
+            },
+            recommendations,
+            createdAt: new Date().toISOString(),
+            source: "farm-information-auto-assessment"
+        };
+    }
+
+
+    /* =========================================
        FARM FORM
     ========================================= */
 
@@ -1608,6 +1722,26 @@
                 soilManagement: soilPractices
 
             };
+
+
+            /* =====================================
+               AUTO SCORE + CARBON ESTIMATE
+               Generate immediately from farm information.
+            ====================================== */
+
+            const autoAssessment =
+                generateFarmAssessment(farmData);
+
+            localStorage.setItem(
+                "carbonReadyAssessment",
+                JSON.stringify(autoAssessment)
+            );
+
+            /* Save carbon estimate separately for easy dashboard/result use */
+            localStorage.setItem(
+                "carbonReadyCarbonCreated",
+                String(autoAssessment.carbonCreated)
+            );
 
 
             saveBtn.disabled = true;

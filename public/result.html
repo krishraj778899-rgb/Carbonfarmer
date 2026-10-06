@@ -368,6 +368,25 @@
     </section>
 
 
+    <!-- CARBON CREATED ESTIMATE -->
+
+    <section class="card" style="text-align:center;">
+
+        <h2>🌍 Estimated Carbon Created</h2>
+
+        <div id="carbonCreated"
+             style="font-size:42px;font-weight:900;color:#207542;">
+            0.00 tCO₂e
+        </div>
+
+        <p style="color:#68766d;margin-top:8px;">
+            Indicative annual estimate based on farm area and readiness score.
+            This is not an issued or certified carbon credit amount.
+        </p>
+
+    </section>
+
+
     <!-- FARM SUMMARY -->
 
     <section class="card">
@@ -446,37 +465,37 @@
 
             <div class="breakdown-item">
                 <span>Land</span>
-                <strong>15</strong>
+                <strong id="breakdownLand">0</strong>
             </div>
 
             <div class="breakdown-item">
                 <span>Crop History</span>
-                <strong>15</strong>
+                <strong id="breakdownCrop">0</strong>
             </div>
 
             <div class="breakdown-item">
                 <span>Sustainable Practices</span>
-                <strong>20</strong>
+                <strong id="breakdownPractices">0</strong>
             </div>
 
             <div class="breakdown-item">
                 <span>Input Usage</span>
-                <strong>10</strong>
+                <strong id="breakdownInputs">0</strong>
             </div>
 
             <div class="breakdown-item">
                 <span>Irrigation</span>
-                <strong>10</strong>
+                <strong id="breakdownIrrigation">0</strong>
             </div>
 
             <div class="breakdown-item">
                 <span>Soil Management</span>
-                <strong>15</strong>
+                <strong id="breakdownSoil">0</strong>
             </div>
 
             <div class="breakdown-item">
-                <span>Documentation</span>
-                <strong>15</strong>
+                <span id="breakdownDocumentsLabel">Documentation</span>
+                <strong id="breakdownDocuments">0</strong>
             </div>
 
         </div>
@@ -588,6 +607,75 @@
        DISPLAY SCORE
     ============================== */
 
+    /*
+       If an older session has farm data but no assessment,
+       generate the score here as a final fallback.
+    */
+    if (!assessment && farm && farm.landArea) {
+
+        let score = 0;
+
+        if (farm.landArea) score += 7;
+        if (farm.landType) score += 4;
+        if (farm.soilType) score += 4;
+        if (farm.village && farm.district) score += 5;
+
+        if (farm.mainCrop) score += 6;
+        if (farm.previousCrop) score += 4;
+        if (farm.cropYears) score += 4;
+        if (farm.cropRotation === "regular") score += 6;
+        else if (farm.cropRotation === "sometimes") score += 3;
+
+        score += Math.min((farm.farmingPractices || []).length * 4, 20);
+
+        if (farm.inputUsage?.fertilizer === "balanced") score += 4;
+        else if (farm.inputUsage?.fertilizer) score += 2;
+
+        if (farm.inputUsage?.organicInput === "regular") score += 4;
+        else if (farm.inputUsage?.organicInput) score += 2;
+
+        if (farm.irrigation?.method === "drip") score += 5;
+        else if (farm.irrigation?.method === "sprinkler") score += 4;
+        else if (farm.irrigation?.method === "rain") score += 3;
+        else if (farm.irrigation?.method) score += 2;
+
+        if ((farm.irrigation?.waterPractices || []).length > 0) score += 5;
+
+        score += Math.min((farm.soilManagement || []).length * 2, 10);
+
+        const finalScore = Math.min(Math.round(score), 100);
+
+        assessment = {
+            score: finalScore,
+            level: getLevel(finalScore),
+            landArea: Number(farm.landArea) || 0,
+            mainCrop: farm.mainCrop || "Not provided",
+            irrigation: farm.irrigation?.method || "Not provided",
+            carbonCreated: Number(
+                ((Number(farm.landArea) || 0) * 0.5 *
+                (finalScore / 100)).toFixed(2)
+            ),
+            breakdown: {
+                land: 20,
+                crop: 20,
+                practices: 20,
+                inputs: 10,
+                irrigation: 10,
+                soil: 10,
+                documents: 10
+            },
+            recommendations: [
+                "Complete the detailed assessment for more precise recommendations."
+            ]
+        };
+
+        localStorage.setItem(
+            "carbonReadyAssessment",
+            JSON.stringify(assessment)
+        );
+    }
+
+
     if (assessment) {
 
         const score =
@@ -660,6 +748,42 @@
         assessment?.irrigation ||
         farm.irrigation?.method ||
         "Not provided";
+
+
+    /* ==============================
+       CARBON CREATED + BREAKDOWN
+    ============================== */
+
+    const carbonCreated =
+        Number(
+            assessment?.carbonCreated ??
+            (
+                (Number(farm.landArea) || 0) *
+                0.5 *
+                ((Number(assessment?.score) || 0) / 100)
+            )
+        ) || 0;
+
+    document.getElementById("carbonCreated").textContent =
+        `${carbonCreated.toFixed(2)} tCO₂e`;
+
+    const breakdown =
+        assessment?.breakdown || {};
+
+    document.getElementById("breakdownLand").textContent =
+        breakdown.land ?? 20;
+    document.getElementById("breakdownCrop").textContent =
+        breakdown.crop ?? 20;
+    document.getElementById("breakdownPractices").textContent =
+        breakdown.practices ?? 20;
+    document.getElementById("breakdownInputs").textContent =
+        breakdown.inputs ?? 10;
+    document.getElementById("breakdownIrrigation").textContent =
+        breakdown.irrigation ?? 10;
+    document.getElementById("breakdownSoil").textContent =
+        breakdown.soil ?? 10;
+    document.getElementById("breakdownDocuments").textContent =
+        breakdown.documents ?? 10;
 
 
     /* ==============================

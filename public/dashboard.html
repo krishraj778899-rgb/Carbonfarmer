@@ -1177,13 +1177,11 @@
             const result =
                 JSON.parse(savedAssessment);
 
-            const score =
+            readinessScore =
                 Number(result.score) || 0;
 
-            readinessScore = score;
-
             document.getElementById("scoreNumber").textContent =
-                score;
+                readinessScore;
 
             document.getElementById("scoreLevel").textContent =
                 result.level || "Not Assessed";
@@ -1220,6 +1218,77 @@
 
         }
 
+    }
+
+    /*
+       Defensive fallback:
+       If farm information exists but an old browser session
+       has no assessment record, generate a score from the
+       available farm information so the dashboard never stays at 0.
+    */
+    if (readinessScore === 0 && farmData) {
+
+        let autoScore = 0;
+
+        if (farmData.landArea) autoScore += 7;
+        if (farmData.landType) autoScore += 4;
+        if (farmData.soilType) autoScore += 4;
+        if (farmData.village && farmData.district) autoScore += 5;
+
+        if (farmData.mainCrop) autoScore += 6;
+        if (farmData.previousCrop) autoScore += 4;
+        if (farmData.cropYears) autoScore += 4;
+        if (farmData.cropRotation === "regular") autoScore += 6;
+        else if (farmData.cropRotation === "sometimes") autoScore += 3;
+
+        autoScore += Math.min(
+            (farmData.farmingPractices || []).length * 4,
+            20
+        );
+
+        if (farmData.inputUsage?.fertilizer === "balanced") autoScore += 4;
+        else if (farmData.inputUsage?.fertilizer) autoScore += 2;
+
+        if (farmData.inputUsage?.organicInput === "regular") autoScore += 4;
+        else if (farmData.inputUsage?.organicInput) autoScore += 2;
+
+        if (farmData.irrigation?.method === "drip") autoScore += 5;
+        else if (farmData.irrigation?.method === "sprinkler") autoScore += 4;
+        else if (farmData.irrigation?.method === "rain") autoScore += 3;
+        else if (farmData.irrigation?.method) autoScore += 2;
+
+        if ((farmData.irrigation?.waterPractices || []).length > 0) autoScore += 5;
+        autoScore += Math.min(
+            (farmData.soilManagement || []).length * 2,
+            10
+        );
+
+        readinessScore = Math.min(Math.round(autoScore), 100);
+
+        let level = "Not Ready Yet";
+        if (readinessScore >= 80) level = "Highly Ready";
+        else if (readinessScore >= 60) level = "Moderately Ready";
+        else if (readinessScore >= 40) level = "Needs Improvement";
+
+        document.getElementById("scoreNumber").textContent = readinessScore;
+        document.getElementById("scoreLevel").textContent = level;
+
+        localStorage.setItem(
+            "carbonReadyAssessment",
+            JSON.stringify({
+                score: readinessScore,
+                level,
+                landArea: Number(farmData.landArea) || 0,
+                mainCrop: farmData.mainCrop || "Not provided",
+                irrigation: farmData.irrigation?.method || "Not provided",
+                carbonCreated: Number(
+                    ((Number(farmData.landArea) || 0) * 0.5 *
+                    (readinessScore / 100)).toFixed(2)
+                ),
+                createdAt: new Date().toISOString(),
+                source: "farm-information-auto-assessment"
+            })
+        );
     }
 
 
